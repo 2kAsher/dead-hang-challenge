@@ -1,455 +1,563 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dead Hang Challenge</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dead Hang Challenge</title>
 
-  <style>
-    * {
-      box-sizing: border-box;
-    }
+<style>
+* {
+  box-sizing: border-box;
+}
 
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #0b0b0b;
-      color: white;
-    }
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #080808;
+  color: white;
+}
 
-    .container {
-      max-width: 500px;
-      margin: auto;
-      padding: 35px 20px;
-    }
+.container {
+  width: 100%;
+  max-width: 520px;
+  margin: auto;
+  padding: 28px 20px 50px;
+}
 
-    .logo {
-      text-align: center;
-      font-size: 18px;
-      font-weight: bold;
-      letter-spacing: 3px;
-      margin-bottom: 35px;
-    }
+/* HEADER */
 
-    h1 {
-      text-align: center;
-      font-size: 42px;
-      line-height: 1.05;
-      margin: 0 0 10px;
-    }
+.logo {
+  text-align: center;
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: 4px;
+  margin-bottom: 42px;
+}
 
-    .subtitle {
-      text-align: center;
-      color: #aaa;
-      font-size: 16px;
-      margin-bottom: 35px;
-    }
+h1 {
+  text-align: center;
+  font-size: 48px;
+  line-height: 0.95;
+  margin: 0;
+  font-weight: 900;
+  letter-spacing: -2px;
+}
 
-    .prize {
-      background: #171717;
-      border-radius: 20px;
-      padding: 25px;
-      margin-bottom: 15px;
-      text-align: center;
-    }
+.subtitle {
+  text-align: center;
+  color: #999;
+  font-size: 16px;
+  margin: 15px 0 32px;
+  line-height: 1.5;
+}
 
-    .prize-title {
-      color: #aaa;
-      font-size: 13px;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-    }
+/* CARDS */
 
-    .prize-money {
-      font-size: 42px;
-      font-weight: bold;
-      margin-top: 8px;
-    }
+.card {
+  background: #151515;
+  border-radius: 22px;
+  padding: 24px;
+  margin-bottom: 14px;
+  text-align: center;
+}
 
-    .entry {
-      background: #171717;
-      border-radius: 20px;
-      padding: 25px;
-      margin-bottom: 20px;
-      text-align: center;
-    }
+.card-label {
+  color: #999;
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
 
-    .entry-title {
-      color: #aaa;
-      font-size: 13px;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-    }
+.big-number {
+  font-size: 44px;
+  font-weight: 900;
+  margin-top: 8px;
+}
 
-    .entry-price {
-      font-size: 32px;
-      font-weight: bold;
-      margin-top: 8px;
-    }
+.record {
+  background: white;
+  color: black;
+  border-radius: 22px;
+  padding: 25px;
+  margin: 18px 0;
+  text-align: center;
+}
 
-    .record {
-      background: white;
-      color: black;
-      border-radius: 20px;
-      padding: 25px;
-      margin-bottom: 25px;
-      text-align: center;
-    }
+.record-label {
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
 
-    .record-title {
-      font-size: 14px;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-    }
+.record-time {
+  font-size: 50px;
+  font-weight: 900;
+  margin-top: 6px;
+}
 
-    .record-time {
-      font-size: 48px;
-      font-weight: bold;
-      margin-top: 8px;
-    }
+/* MAIN BUTTON */
 
-    button {
-      width: 100%;
-      padding: 18px;
-      border: none;
-      border-radius: 14px;
-      background: white;
-      color: black;
-      font-size: 18px;
-      font-weight: bold;
-      cursor: pointer;
-    }
+.join-button {
+  display: block;
+  width: 100%;
+  padding: 21px 18px;
+  border: none;
+  border-radius: 17px;
+  background: white;
+  color: black;
+  font-size: 19px;
+  font-weight: 900;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  box-shadow: 0 6px 0 #777;
+  transition: 0.12s ease;
+  margin-top: 8px;
+}
 
-    button:active {
-      transform: scale(0.98);
-    }
+.join-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 0 #777;
+}
 
-    .leaderboard {
-      margin-top: 35px;
-    }
+.join-button:active {
+  transform: translateY(5px);
+  box-shadow: 0 1px 0 #777;
+}
 
-    .leaderboard h2 {
-      text-align: center;
-      margin-bottom: 15px;
-    }
+.button-note {
+  text-align: center;
+  color: #777;
+  font-size: 12px;
+  margin-top: 13px;
+}
 
-    .player {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 16px;
-      margin-bottom: 8px;
-      background: #171717;
-      border-radius: 12px;
-    }
+/* LEADERBOARD */
 
-    .rank {
-      color: #aaa;
-      margin-right: 10px;
-    }
+.leaderboard {
+  margin-top: 42px;
+}
 
-    .time {
-      font-weight: bold;
-    }
+.leaderboard h2 {
+  text-align: center;
+  font-size: 22px;
+  margin-bottom: 17px;
+}
 
-    /* Registration screen */
+.player {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #151515;
+  border-radius: 14px;
+  padding: 16px 18px;
+  margin-bottom: 8px;
+}
 
-    .registration {
-      display: none;
-    }
+.player-name {
+  font-weight: bold;
+}
 
-    .registration h2 {
-      font-size: 32px;
-      text-align: center;
-      margin-bottom: 10px;
-    }
+.player-time {
+  font-weight: 900;
+}
 
-    .registration-subtitle {
-      text-align: center;
-      color: #aaa;
-      margin-bottom: 30px;
-    }
+/* SCREENS */
 
-    label {
-      display: block;
-      margin-bottom: 8px;
-      font-weight: bold;
-    }
+.screen {
+  display: none;
+}
 
-    input, select {
-      width: 100%;
-      padding: 16px;
-      border: none;
-      border-radius: 12px;
-      margin-bottom: 20px;
-      font-size: 16px;
-    }
+.screen.active {
+  display: block;
+}
 
-    .contact-options {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      margin-bottom: 20px;
-    }
+/* REGISTRATION */
 
-    .contact-option {
-      background: #171717;
-      padding: 15px;
-      border-radius: 12px;
-      text-align: center;
-      cursor: pointer;
-    }
+.back-button {
+  background: none;
+  border: none;
+  color: #999;
+  font-size: 15px;
+  padding: 0;
+  margin-bottom: 28px;
+  cursor: pointer;
+}
 
-    .contact-option input {
-      width: auto;
-      margin: 0 6px 0 0;
-    }
+.form-title {
+  font-size: 38px;
+  font-weight: 900;
+  line-height: 1;
+  margin-bottom: 10px;
+}
 
-    .back-button {
-      background: #222;
-      color: white;
-      margin-top: 10px;
-    }
+.form-subtitle {
+  color: #999;
+  line-height: 1.5;
+  margin-bottom: 28px;
+}
 
-    /* Confirmation */
+label {
+  display: block;
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
 
-    .confirmation {
-      display: none;
-      text-align: center;
-    }
+input[type="text"],
+input[type="email"],
+input[type="tel"] {
+  width: 100%;
+  padding: 16px;
+  border-radius: 13px;
+  border: 1px solid #333;
+  background: #151515;
+  color: white;
+  font-size: 16px;
+  outline: none;
+  margin-bottom: 20px;
+}
 
-    .confirmation-icon {
-      font-size: 60px;
-      margin-bottom: 15px;
-    }
+input:focus {
+  border-color: white;
+}
 
-    .confirmation h2 {
-      font-size: 36px;
-      margin-bottom: 10px;
-    }
+.contact-title {
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 12px;
+}
 
-    .confirmation p {
-      color: #aaa;
-      line-height: 1.6;
-      margin-bottom: 25px;
-    }
-  </style>
+.contact-option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #151515;
+  border-radius: 13px;
+  padding: 15px;
+  margin-bottom: 8px;
+}
+
+.contact-option input {
+  width: 18px;
+  height: 18px;
+}
+
+.contact-option span {
+  font-size: 15px;
+}
+
+.register-button {
+  width: 100%;
+  padding: 19px;
+  border: none;
+  border-radius: 16px;
+  background: white;
+  color: black;
+  font-size: 18px;
+  font-weight: 900;
+  cursor: pointer;
+  margin-top: 15px;
+}
+
+/* CONFIRMATION */
+
+.confirmation {
+  text-align: center;
+  padding-top: 50px;
+}
+
+.check {
+  width: 75px;
+  height: 75px;
+  border-radius: 50%;
+  background: white;
+  color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 38px;
+  font-weight: bold;
+  margin: 0 auto 25px;
+}
+
+.confirmation h2 {
+  font-size: 42px;
+  margin: 0 0 12px;
+  font-weight: 900;
+}
+
+.confirmation p {
+  color: #999;
+  line-height: 1.6;
+}
+
+.confirmation-box {
+  background: #151515;
+  border-radius: 18px;
+  padding: 22px;
+  margin-top: 28px;
+  text-align: left;
+}
+
+.confirmation-box strong {
+  display: block;
+  margin-bottom: 8px;
+}
+
+.small {
+  color: #777;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+/* MOBILE */
+
+@media (max-width: 380px) {
+  h1 {
+    font-size: 42px;
+  }
+
+  .big-number {
+    font-size: 38px;
+  }
+
+  .record-time {
+    font-size: 44px;
+  }
+}
+</style>
 </head>
 
 <body>
 
-  <div class="container">
+<div class="container">
 
-    <!-- HOME -->
+  <!-- HOME SCREEN -->
+  <section id="homeScreen" class="screen active">
 
-    <div id="home">
+    <div class="logo">
+      DEAD HANG
+    </div>
 
-      <div class="logo">DEAD HANG</div>
+    <h1>
+      BEAT TODAY'S<br>
+      HIGH SCORE
+    </h1>
 
-      <h1>
-        BEAT TODAY'S<br>
-        HIGH SCORE
-      </h1>
+    <div class="subtitle">
+      Hang as long as you can.<br>
+      Beat the leaderboard. Win the prize.
+    </div>
 
-      <div class="subtitle">
-        How long can you hang?
+    <div class="card">
+      <div class="card-label">Today's Prize</div>
+      <div class="big-number">€100</div>
+    </div>
+
+    <div class="card">
+      <div class="card-label">Entry Fee</div>
+      <div class="big-number">€10</div>
+    </div>
+
+    <div class="record">
+      <div class="record-label">Current High Score</div>
+      <div class="record-time">1:47</div>
+    </div>
+
+    <button class="join-button" onclick="showRegistration()">
+      JOIN THE €10 CHALLENGE →
+    </button>
+
+    <div class="button-note">
+      Register first. Your official time is recorded by our staff.
+    </div>
+
+    <div class="leaderboard">
+
+      <h2>Today's Leaderboard</h2>
+
+      <div class="player">
+        <span class="player-name">🥇 Daniel</span>
+        <span class="player-time">1:47</span>
       </div>
 
-      <div class="prize">
-        <div class="prize-title">Today's Prize</div>
-        <div class="prize-money">€100</div>
+      <div class="player">
+        <span class="player-name">🥈 Marcus</span>
+        <span class="player-time">1:32</span>
       </div>
 
-      <div class="entry">
-        <div class="entry-title">Entry Fee</div>
-        <div class="entry-price">€10</div>
-      </div>
-
-      <div class="record">
-        <div class="record-title">Current High Score</div>
-        <div class="record-time">1:47</div>
-      </div>
-
-      <button onclick="showRegistration()">
-        JOIN THE €10 CHALLENGE
-      </button>
-
-      <div class="leaderboard">
-
-        <h2>Today's Leaderboard</h2>
-
-        <div class="player">
-          <div>
-            <span class="rank">🥇</span>
-            Moses
-          </div>
-          <div class="time">1:47</div>
-        </div>
-
-        <div class="player">
-          <div>
-            <span class="rank">🥈</span>
-            Marcus
-          </div>
-          <div class="time">1:39</div>
-        </div>
-
-        <div class="player">
-          <div>
-            <span class="rank">🥉</span>
-            Jason
-          </div>
-          <div class="time">1:32</div>
-        </div>
-
+      <div class="player">
+        <span class="player-name">🥉 Jason</span>
+        <span class="player-time">1:21</span>
       </div>
 
     </div>
 
+  </section>
 
-    <!-- REGISTRATION -->
 
-    <div id="registration" class="registration">
+  <!-- REGISTRATION SCREEN -->
+  <section id="registrationScreen" class="screen">
 
-      <div class="logo">DEAD HANG</div>
+    <button class="back-button" onclick="goHome()">
+      ← Back
+    </button>
 
-      <h2>JOIN THE CHALLENGE</h2>
-
-      <div class="registration-subtitle">
-        Entry fee: <strong>€10</strong>
-      </div>
-
-      <label for="name">Your name</label>
-
-      <input
-        type="text"
-        id="name"
-        placeholder="Enter your name"
-      >
-
-      <label>How can we contact you if you win?</label>
-
-      <div class="contact-options">
-
-        <label class="contact-option">
-          <input type="checkbox" value="Phone" name="contact">
-          📱 Phone
-        </label>
-
-        <label class="contact-option">
-          <input type="checkbox" value="Email" name="contact">
-          📧 Email
-        </label>
-
-        <label class="contact-option">
-          <input type="checkbox" value="Instagram" name="contact">
-          📸 Instagram
-        </label>
-
-        <label class="contact-option">
-          <input type="checkbox" value="Snapchat" name="contact">
-          👻 Snapchat
-        </label>
-
-      </div>
-
-      <label for="contactDetails">
-        Contact details
-      </label>
-
-      <input
-        type="text"
-        id="contactDetails"
-        placeholder="e.g. +49..., email, @username"
-      >
-
-      <button onclick="registerPlayer()">
-        REGISTER
-      </button>
-
-      <button class="back-button" onclick="goHome()">
-        BACK
-      </button>
-
+    <div class="form-title">
+      JOIN THE<br>
+      CHALLENGE
     </div>
 
+    <div class="form-subtitle">
+      Entry is €10. Register your details before attempting your dead hang.
+    </div>
 
-    <!-- CONFIRMATION -->
+    <label for="name">Your name</label>
 
-    <div id="confirmation" class="confirmation">
+    <input
+      type="text"
+      id="name"
+      placeholder="Enter your name"
+    >
 
-      <div class="logo">DEAD HANG</div>
+    <div class="contact-title">
+      How should we contact you if you win?
+    </div>
 
-      <div class="confirmation-icon">🔥</div>
+    <div class="contact-option">
+      <input type="checkbox" id="phoneCheck">
+      <span>Phone</span>
+    </div>
 
-      <h2>YOU'RE IN</h2>
+    <div class="contact-option">
+      <input type="checkbox" id="emailCheck">
+      <span>Email</span>
+    </div>
+
+    <div class="contact-option">
+      <input type="checkbox" id="instagramCheck">
+      <span>Instagram</span>
+    </div>
+
+    <div class="contact-option">
+      <input type="checkbox" id="snapchatCheck">
+      <span>Snapchat</span>
+    </div>
+
+    <label for="contact">
+      Contact details
+    </label>
+
+    <input
+      type="text"
+      id="contact"
+      placeholder="e.g. +49 123 456789"
+    >
+
+    <button class="register-button" onclick="registerPlayer()">
+      REGISTER FOR €10 →
+    </button>
+
+    <div class="button-note">
+      Payment will be added to the final version.
+    </div>
+
+  </section>
+
+
+  <!-- CONFIRMATION SCREEN -->
+  <section id="confirmationScreen" class="screen">
+
+    <div class="confirmation">
+
+      <div class="check">
+        ✓
+      </div>
+
+      <h2>YOU'RE IN.</h2>
 
       <p>
-        Your registration has been recorded for today's
-        Dead Hang Challenge.
-        <br><br>
-        Give your name to the staff member when you're ready.
-        Your official hang time will be entered by staff.
+        Your registration has been received.
+        Get ready to hang.
       </p>
 
-      <button onclick="goHome()">
-        BACK TO LEADERBOARD
+      <div class="confirmation-box">
+
+        <strong>What's next?</strong>
+
+        <div class="small">
+          Speak to our staff before your attempt.
+          Your official dead hang time will be recorded
+          by staff and added to today's leaderboard.
+        </div>
+
+      </div>
+
+      <button
+        class="register-button"
+        onclick="goHome()"
+      >
+        VIEW LEADERBOARD
       </button>
 
     </div>
 
-  </div>
+  </section>
+
+</div>
 
 
-  <script>
+<script>
 
-    function showRegistration() {
+function showRegistration() {
+  document.getElementById("homeScreen").classList.remove("active");
+  document.getElementById("registrationScreen").classList.add("active");
+  window.scrollTo(0, 0);
+}
 
-      document.getElementById("home").style.display = "none";
+function goHome() {
+  document.getElementById("registrationScreen").classList.remove("active");
+  document.getElementById("confirmationScreen").classList.remove("active");
+  document.getElementById("homeScreen").classList.add("active");
+  window.scrollTo(0, 0);
+}
 
-      document.getElementById("registration").style.display = "block";
+function registerPlayer() {
 
-      window.scrollTo(0, 0);
-    }
+  const name = document.getElementById("name").value.trim();
+  const contact = document.getElementById("contact").value.trim();
 
+  if (!name) {
+    alert("Please enter your name.");
+    return;
+  }
 
-    function goHome() {
+  if (!contact) {
+    alert("Please enter your contact details.");
+    return;
+  }
 
-      document.getElementById("registration").style.display = "none";
+  const selectedContacts = [
+    document.getElementById("phoneCheck").checked,
+    document.getElementById("emailCheck").checked,
+    document.getElementById("instagramCheck").checked,
+    document.getElementById("snapchatCheck").checked
+  ];
 
-      document.getElementById("confirmation").style.display = "none";
+  if (!selectedContacts.includes(true)) {
+    alert("Please choose at least one contact method.");
+    return;
+  }
 
-      document.getElementById("home").style.display = "block";
+  document.getElementById("registrationScreen").classList.remove("active");
+  document.getElementById("confirmationScreen").classList.add("active");
 
-      window.scrollTo(0, 0);
-    }
+  window.scrollTo(0, 0);
+}
 
-
-    function registerPlayer() {
-
-      const name = document.getElementById("name").value.trim();
-
-      const contactDetails =
-        document.getElementById("contactDetails").value.trim();
-
-      if (name === "") {
-        alert("Please enter your name.");
-        return;
-      }
-
-      if (contactDetails === "") {
-        alert("Please enter your contact details.");
-        return;
-      }
-
-      document.getElementById("registration").style.display = "none";
-
-      document.getElementById("confirmation").style.display = "block";
-
-      window.scrollTo(0, 0);
-    }
-
-  </script>
+</script>
 
 </body>
 </html>
