@@ -1,913 +1,756 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#050505">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dead Hang Challenge</title>
 
-  <title>Dead Hang Challenge</title>
+<style>
+*{box-sizing:border-box}
 
-  <style>
-    * {
-      box-sizing: border-box;
-    }
+body{
+margin:0;
+background:#050505;
+color:white;
+font-family:Arial,Helvetica,sans-serif;
+}
 
-    html {
-      scroll-behavior: smooth;
-    }
+.app{
+max-width:520px;
+margin:auto;
+padding:25px 18px 50px;
+}
 
-    body {
-      margin: 0;
-      background: #050505;
-      color: #fff;
-      font-family: Arial, Helvetica, sans-serif;
-    }
+.page{display:none}
+.page.active{display:block}
 
-    .app {
-      width: 100%;
-      max-width: 520px;
-      margin: 0 auto;
-      padding: 24px 18px 50px;
-    }
+.brand{
+text-align:center;
+margin:10px 0 35px;
+}
 
-    .brand {
-      text-align: center;
-      margin: 10px 0 38px;
-    }
+.brand-small{
+font-size:13px;
+font-weight:900;
+letter-spacing:5px;
+color:#aaa;
+}
 
-    .brand-small {
-      font-size: 13px;
-      font-weight: 800;
-      letter-spacing: 5px;
-      color: #aaa;
-      margin-bottom: 10px;
-    }
+h1{
+font-size:46px;
+line-height:.95;
+margin:10px 0;
+font-weight:1000;
+letter-spacing:-2px;
+}
 
-    .brand-title {
-      font-size: 46px;
-      line-height: .95;
-      font-weight: 1000;
-      letter-spacing: -2px;
-      margin: 0;
-    }
+.tagline{
+color:#999;
+font-size:15px;
+font-weight:700;
+}
 
-    .tagline {
-      margin-top: 14px;
-      color: #999;
-      font-size: 15px;
-      font-weight: 600;
-    }
+.card{
+background:#151515;
+border:1px solid #252525;
+border-radius:22px;
+padding:24px;
+margin-bottom:14px;
+}
 
-    .card {
-      background: #151515;
-      border: 1px solid #252525;
-      border-radius: 22px;
-      padding: 24px;
-      margin-bottom: 14px;
-    }
+.label{
+font-size:12px;
+font-weight:900;
+letter-spacing:2px;
+color:#999;
+text-transform:uppercase;
+}
 
-    .label {
-      color: #8f8f8f;
-      font-size: 12px;
-      font-weight: 800;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-    }
+.prize{text-align:center}
 
-    .prize {
-      text-align: center;
-    }
+.prize-amount{
+font-size:55px;
+font-weight:1000;
+margin-top:5px;
+}
 
-    .prize-amount {
-      font-size: 54px;
-      font-weight: 1000;
-      margin-top: 5px;
-    }
+.prize-sub{
+color:#999;
+font-size:14px;
+margin-top:5px;
+}
 
-    .prize-sub {
-      color: #999;
-      font-size: 14px;
-      margin-top: 5px;
-    }
+.entry{text-align:center}
 
-    .entry {
-      text-align: center;
-    }
+.entry-price{
+font-size:40px;
+font-weight:1000;
+margin-top:5px;
+}
 
-    .entry-price {
-      font-size: 38px;
-      font-weight: 1000;
-      margin-top: 6px;
-    }
+.entry-note{
+color:#888;
+font-size:13px;
+}
 
-    .entry-note {
-      color: #888;
-      font-size: 13px;
-      margin-top: 5px;
-    }
+.high-score{
+background:white;
+color:black;
+text-align:center;
+}
 
-    .high-score {
-      background: #fff;
-      color: #000;
-      text-align: center;
-    }
+.high-score .label{color:#555}
 
-    .high-score .label {
-      color: #555;
-    }
+.score{
+font-size:58px;
+font-weight:1000;
+margin-top:5px;
+}
 
-    .score {
-      font-size: 55px;
-      font-weight: 1000;
-      margin-top: 5px;
-      letter-spacing: -2px;
-    }
+.score-name{
+color:#555;
+font-size:14px;
+}
 
-    .score-name {
-      font-size: 14px;
-      color: #555;
-      margin-top: 4px;
-    }
+.cta-wrap{
+margin:22px 0 32px;
+}
 
-    .cta-wrap {
-      margin: 22px 0 30px;
-    }
+.cta{
+display:block;
+width:100%;
+padding:24px 15px;
+border:0;
+border-radius:18px;
+background:white;
+color:black;
+font-size:20px;
+font-weight:1000;
+text-align:center;
+text-decoration:none;
+box-shadow:0 7px 0 #777;
+cursor:pointer;
+}
 
-    .cta {
-      width: 100%;
-      border: 0;
-      border-radius: 18px;
-      padding: 23px 18px;
-      background: #fff;
-      color: #000;
-      font-size: 20px;
-      font-weight: 1000;
-      letter-spacing: .5px;
-      cursor: pointer;
-      box-shadow: 0 7px 0 #777, 0 14px 30px rgba(255,255,255,.12);
-      transition: .12s ease;
-    }
+.cta:active{
+transform:translateY(5px);
+box-shadow:0 2px 0 #777;
+}
 
-    .cta:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 9px 0 #777, 0 18px 35px rgba(255,255,255,.16);
-    }
+.cta-small{
+text-align:center;
+color:#777;
+font-size:12px;
+margin-top:14px;
+}
 
-    .cta:active {
-      transform: translateY(5px);
-      box-shadow: 0 2px 0 #777;
-    }
+.leaderboard-title{
+font-size:25px;
+font-weight:1000;
+margin-bottom:15px;
+}
 
-    .cta-small {
-      color: #777;
-      text-align: center;
-      font-size: 12px;
-      margin-top: 13px;
-    }
+.player{
+display:flex;
+justify-content:space-between;
+align-items:center;
+background:#151515;
+border-radius:16px;
+padding:18px;
+margin-bottom:9px;
+}
 
-    .leaderboard-title {
-      font-size: 24px;
-      font-weight: 1000;
-      margin: 0 0 15px;
-    }
+.player-left{
+display:flex;
+align-items:center;
+gap:12px;
+}
 
-    .player {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background: #151515;
-      border: 1px solid #252525;
-      border-radius: 15px;
-      padding: 16px;
-      margin-bottom: 8px;
-    }
+.rank{
+font-size:20px;
+width:30px;
+}
 
-    .player-left {
-      display: flex;
-      align-items: center;
-      gap: 13px;
-    }
+.player-name{
+font-weight:900;
+font-size:18px;
+}
 
-    .rank {
-      width: 30px;
-      color: #777;
-      font-weight: 900;
-    }
+.player-time{
+font-size:18px;
+font-weight:1000;
+}
 
-    .player-name {
-      font-weight: 800;
-    }
+.footer{
+text-align:center;
+color:#555;
+font-size:11px;
+line-height:1.6;
+margin-top:35px;
+}
 
-    .player-time {
-      font-weight: 1000;
-      font-size: 18px;
-    }
+.form-title{
+font-size:32px;
+font-weight:1000;
+margin:0 0 8px;
+}
 
-    .page {
-      display: none;
-    }
+.form-subtitle{
+color:#888;
+line-height:1.5;
+margin-bottom:25px;
+}
 
-    .page.active {
-      display: block;
-    }
+.field{
+margin-bottom:20px;
+}
 
-    .form-title {
-      font-size: 32px;
-      font-weight: 1000;
-      margin: 0 0 8px;
-    }
+.field label{
+display:block;
+font-size:13px;
+font-weight:900;
+color:#ccc;
+margin-bottom:9px;
+}
 
-    .form-subtitle {
-      color: #888;
-      line-height: 1.5;
-      margin-bottom: 25px;
-    }
+input[type="text"]{
+width:100%;
+padding:16px;
+border-radius:12px;
+border:1px solid #333;
+background:#090909;
+color:white;
+font-size:16px;
+outline:none;
+}
 
-    .field {
-      margin-bottom: 20px;
-    }
+.contact-options{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:9px;
+}
 
-    .field label {
-      display: block;
-      margin-bottom: 9px;
-      font-size: 13px;
-      font-weight: 800;
-      color: #ccc;
-    }
+.contact-option{
+display:flex;
+align-items:center;
+gap:8px;
+padding:14px;
+border:1px solid #333;
+border-radius:12px;
+background:#090909;
+font-size:14px;
+}
 
-    input[type="text"],
-    input[type="email"],
-    input[type="tel"] {
-      width: 100%;
-      border: 1px solid #333;
-      background: #0b0b0b;
-      color: #fff;
-      border-radius: 12px;
-      padding: 15px;
-      font-size: 16px;
-      outline: none;
-    }
+.contact-option input{
+accent-color:white;
+}
 
-    input:focus {
-      border-color: #777;
-    }
+.form-buttons{
+display:flex;
+gap:10px;
+}
 
-    .contact-options {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 9px;
-    }
+.secondary,
+.submit,
+.back-home{
+padding:16px;
+border-radius:13px;
+font-weight:1000;
+font-size:15px;
+cursor:pointer;
+}
 
-    .contact-option {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      background: #0b0b0b;
-      border: 1px solid #333;
-      border-radius: 12px;
-      padding: 13px;
-      font-size: 14px;
-    }
+.secondary{
+flex:1;
+background:#151515;
+color:white;
+border:1px solid #333;
+}
 
-    .contact-option input {
-      accent-color: #fff;
-    }
+.submit{
+flex:2;
+background:white;
+color:black;
+border:0;
+}
 
-    .form-buttons {
-      display: flex;
-      gap: 10px;
-      margin-top: 10px;
-    }
+.submit:disabled{
+opacity:.5;
+}
 
-    .secondary {
-      flex: 1;
-      border: 1px solid #333;
-      background: #151515;
-      color: #fff;
-      border-radius: 13px;
-      padding: 16px;
-      font-size: 15px;
-      font-weight: 800;
-      cursor: pointer;
-    }
+.message{
+display:none;
+padding:13px;
+border-radius:12px;
+margin-bottom:15px;
+font-size:14px;
+}
 
-    .submit {
-      flex: 2;
-      border: 0;
-      background: #fff;
-      color: #000;
-      border-radius: 13px;
-      padding: 16px;
-      font-size: 16px;
-      font-weight: 1000;
-      cursor: pointer;
-    }
+.message.error{
+display:block;
+background:#2a1111;
+border:1px solid #5b2222;
+color:#ffb0b0;
+}
 
-    .submit:disabled {
-      opacity: .5;
-      cursor: not-allowed;
-    }
+.success-card{
+text-align:center;
+padding:40px 25px;
+}
 
-    .message {
-      margin-top: 15px;
-      padding: 13px;
-      border-radius: 12px;
-      display: none;
-      font-size: 14px;
-      line-height: 1.4;
-    }
+.success-icon{
+font-size:60px;
+}
 
-    .message.error {
-      display: block;
-      background: #2a1111;
-      color: #ffb0b0;
-      border: 1px solid #5b2222;
-    }
+.success-title{
+font-size:40px;
+font-weight:1000;
+}
 
-    .message.success {
-      display: block;
-      background: #112511;
-      color: #b7ffb7;
-      border: 1px solid #285c28;
-    }
+.success-text{
+color:#999;
+line-height:1.6;
+}
 
-    .success-card {
-      text-align: center;
-      padding: 35px 22px;
-    }
+.back-home{
+width:100%;
+margin-top:25px;
+background:#151515;
+color:white;
+border:1px solid #333;
+}
 
-    .success-icon {
-      font-size: 55px;
-      margin-bottom: 15px;
-    }
-
-    .success-title {
-      font-size: 38px;
-      font-weight: 1000;
-      margin: 0 0 12px;
-    }
-
-    .success-text {
-      color: #999;
-      line-height: 1.6;
-    }
-
-    .back-home {
-      width: 100%;
-      margin-top: 25px;
-      padding: 16px;
-      border: 1px solid #333;
-      border-radius: 13px;
-      background: #151515;
-      color: #fff;
-      font-weight: 800;
-      cursor: pointer;
-    }
-
-    .footer {
-      text-align: center;
-      color: #555;
-      font-size: 11px;
-      margin-top: 35px;
-      line-height: 1.6;
-    }
-
-    @media (max-width: 380px) {
-      .brand-title {
-        font-size: 39px;
-      }
-
-      .contact-options {
-        grid-template-columns: 1fr;
-      }
-    }
-  </style>
+@media(max-width:380px){
+h1{font-size:40px}
+.contact-options{grid-template-columns:1fr}
+}
+</style>
 </head>
 
 <body>
 
-  <main class="app">
-
-    <!-- HOME -->
-    <section id="homePage" class="page active">
-
-      <header class="brand">
-        <div class="brand-small">THE</div>
-        <h1 class="brand-title">DEAD HANG</h1>
-        <div class="tagline">BEAT TODAY'S HIGH SCORE.</div>
-      </header>
-
-      <div class="card prize">
-        <div class="label">Today's Prize</div>
-        <div class="prize-amount">€100</div>
-        <div class="prize-sub">
-          Highest official time at the end of today wins.
-        </div>
-      </div>
-
-      <div class="card entry">
-        <div class="label">Entry</div>
-        <div class="entry-price">€10</div>
-        <div class="entry-note">
-          One official dead hang attempt.
-        </div>
-      </div>
-
-      <div class="card high-score">
-        <div class="label">Current High Score</div>
-        <div id="highScore" class="score">1:47</div>
-        <div id="highScoreName" class="score-name">
-          Today's leaderboard
-        </div>
-      </div>
-
-      <div class="cta-wrap">
-        <button class="cta" onclick="showRegistration()">
-          JOIN THE €10 CHALLENGE
-        </button>
-
-        <div class="cta-small">
-          Register first. Payment will be added to the live version.
-        </div>
-      </div>
-
-      <section>
-        <h2 class="leaderboard-title">
-          Today's Leaderboard
-        </h2>
-
-        <div class="player">
-          <div class="player-left">
-            <div class="rank">1</div>
-            <div class="player-name">Daniel</div>
-          </div>
-          <div class="player-time">1:47</div>
-        </div>
-
-        <div class="player">
-          <div class="player-left">
-            <div class="rank">2</div>
-            <div class="player-name">Marcus</div>
-          </div>
-          <div class="player-time">1:32</div>
-        </div>
-
-        <div class="player">
-          <div class="player-left">
-            <div class="rank">3</div>
-            <div class="player-name">Jason</div>
-          </div>
-          <div class="player-time">1:18</div>
-        </div>
-      </section>
-
-      <div class="footer">
-        Official time is recorded by challenge staff.<br>
-        Winner is contacted using the details provided during registration.
-      </div>
-
-    </section>
-
-
-    <!-- REGISTRATION -->
-    <section id="registrationPage" class="page">
-
-      <div class="card">
-
-        <h2 class="form-title">
-          You're stepping up.
-        </h2>
-
-        <div class="form-subtitle">
-          Register for today's Dead Hang Challenge.
-          Your official time will be recorded by challenge staff after your attempt.
-        </div>
-
-        <form id="registrationForm">
-
-          <div class="field">
-
-            <label for="name">
-              YOUR NAME
-            </label>
-
-            <input
-              id="name"
-              type="text"
-              placeholder="Enter your name"
-              autocomplete="name"
-              required
-            >
+<div class="app">
+
+<!-- HOME -->
+<section id="home" class="page active">
 
-          </div>
+<div class="brand">
+<div class="brand-small">THE</div>
+<h1>DEAD HANG</h1>
+<div class="tagline">BEAT TODAY'S HIGH SCORE.</div>
+</div>
 
+<div class="card prize">
+<div class="label">Today's Prize</div>
+<div class="prize-amount">€100</div>
+<div class="prize-sub">Highest official time at the end of today wins.</div>
+</div>
 
-          <div class="field">
+<div class="card entry">
+<div class="label">Entry Fee</div>
+<div class="entry-price">€10</div>
+<div class="entry-note">One official dead hang attempt.</div>
+</div>
 
-            <label>
-              HOW SHOULD WE CONTACT YOU?
-            </label>
+<div class="card high-score">
+<div class="label">Current High Score</div>
+<div class="score">1:47</div>
+<div class="score-name">Daniel</div>
+</div>
 
-            <div class="contact-options">
+<div class="cta-wrap">
 
-              <label class="contact-option">
-                <input
-                  type="checkbox"
-                  name="contactMethod"
-                  value="Phone"
-                >
-                Phone
-              </label>
+<a href="#registration" class="cta">
+JOIN THE €10 CHALLENGE →
+</a>
 
-              <label class="contact-option">
-                <input
-                  type="checkbox"
-                  name="contactMethod"
-                  value="Email"
-                >
-                Email
-              </label>
+<div class="cta-small">
+Register first. Your official time is recorded by our staff.
+</div>
 
-              <label class="contact-option">
-                <input
-                  type="checkbox"
-                  name="contactMethod"
-                  value="Instagram"
-                >
-                Instagram
-              </label>
+</div>
 
-              <label class="contact-option">
-                <input
-                  type="checkbox"
-                  name="contactMethod"
-                  value="Snapchat"
-                >
-                Snapchat
-              </label>
+<div class="leaderboard-title">
+Today's Leaderboard
+</div>
 
-            </div>
+<div class="player">
+<div class="player-left">
+<div class="rank">🥇</div>
+<div class="player-name">Daniel</div>
+</div>
+<div class="player-time">1:47</div>
+</div>
 
-          </div>
+<div class="player">
+<div class="player-left">
+<div class="rank">🥈</div>
+<div class="player-name">Marcus</div>
+</div>
+<div class="player-time">1:32</div>
+</div>
 
+<div class="player">
+<div class="player-left">
+<div class="rank">🥉</div>
+<div class="player-name">Jason</div>
+</div>
+<div class="player-time">1:21</div>
+</div>
 
-          <div class="field">
+<div class="footer">
+Official time is recorded by challenge staff.<br>
+Winner is contacted using the details provided during registration.
+</div>
 
-            <label for="contactDetails">
-              CONTACT DETAILS
-            </label>
+</section>
 
-            <input
-              id="contactDetails"
-              type="text"
-              placeholder="e.g. +49..., email, @username"
-              required
-            >
 
-          </div>
+<!-- REGISTRATION -->
+<section id="registration" class="page">
 
+<div class="card">
 
-          <div
-            class="message"
-            id="formMessage"
-          ></div>
+<h2 class="form-title">You're stepping up.</h2>
 
+<div class="form-subtitle">
+Register for today's Dead Hang Challenge.
+Your official time will be recorded by challenge staff after your attempt.
+</div>
 
-          <div class="form-buttons">
+<form id="registrationForm">
 
-            <button
-              type="button"
-              class="secondary"
-              onclick="goHome()"
-            >
-              BACK
-            </button>
+<div class="field">
 
-            <button
-              type="submit"
-              class="submit"
-              id="submitButton"
-            >
-              REGISTER
-            </button>
+<label for="name">YOUR NAME</label>
 
-          </div>
+<input
+id="name"
+type="text"
+placeholder="Enter your name"
+required
+>
 
-        </form>
+</div>
 
-      </div>
 
+<div class="field">
 
-      <div class="footer">
-        Registration information is used to contact the winner.
-      </div>
+<label>HOW SHOULD WE CONTACT YOU?</label>
 
-    </section>
+<div class="contact-options">
 
+<label class="contact-option">
+<input type="checkbox" name="method" value="Phone">
+Phone
+</label>
 
-    <!-- SUCCESS -->
-    <section id="successPage" class="page">
+<label class="contact-option">
+<input type="checkbox" name="method" value="Email">
+Email
+</label>
 
-      <div class="card success-card">
+<label class="contact-option">
+<input type="checkbox" name="method" value="Instagram">
+Instagram
+</label>
 
-        <div class="success-icon">
-          ✓
-        </div>
+<label class="contact-option">
+<input type="checkbox" name="method" value="Snapchat">
+Snapchat
+</label>
 
-        <h2 class="success-title">
-          YOU'RE IN.
-        </h2>
+</div>
 
-        <div class="success-text">
-          Your registration has been received.
-          <br><br>
-          Find the Dead Hang Challenge staff member
-          and get ready for your official attempt.
-          Your time will be recorded by staff.
-        </div>
+</div>
 
-        <button
-          class="back-home"
-          onclick="goHome()"
-        >
-          BACK TO LEADERBOARD
-        </button>
 
-      </div>
+<div class="field">
 
-    </section>
+<label for="contact">
+CONTACT DETAILS
+</label>
 
-  </main>
+<input
+id="contact"
+type="text"
+placeholder="Phone, email or @username"
+required
+>
 
+</div>
 
-  <!-- SUPABASE -->
+<div id="message" class="message"></div>
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<div class="form-buttons">
 
-  <script>
+<button
+type="button"
+class="secondary"
+onclick="goHome()"
+>
+BACK
+</button>
 
-    const SUPABASE_URL =
-      "https://krxigmwxntdwqikumabn.supabase.co";
+<button
+type="submit"
+class="submit"
+id="submit"
+>
+REGISTER
+</button>
 
-    const SUPABASE_KEY =
-      "sb_publishable_rAj3Me-MtVgT7MPT7itNzw_2l1jwcaY";
+</div>
 
+</form>
 
-    const supabaseClient =
-      window.supabase.createClient(
-        SUPABASE_URL,
-        SUPABASE_KEY
-      );
+</div>
 
+<div class="footer">
+Registration information is used to contact the winner.
+</div>
 
-    /*
-    ==========================================
-    PAGE NAVIGATION
-    ==========================================
-    */
+</section>
 
-    function showPage(pageId) {
 
-      document
-        .querySelectorAll(".page")
-        .forEach(function(page) {
+<!-- SUCCESS -->
+<section id="success" class="page">
 
-          page.classList.remove("active");
+<div class="card success-card">
 
-        });
+<div class="success-icon">✓</div>
 
+<h2 class="success-title">
+YOU'RE IN.
+</h2>
 
-      document
-        .getElementById(pageId)
-        .classList.add("active");
+<div class="success-text">
+Your registration has been received.
+<br><br>
+Find the Dead Hang Challenge staff member
+and get ready for your official attempt.
+</div>
 
+<button
+class="back-home"
+onclick="goHome()"
+>
+BACK TO LEADERBOARD
+</button>
 
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-      });
+</div>
 
-    }
+</section>
 
+</div>
 
-    function showRegistration() {
 
-      showPage("registrationPage");
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-    }
+<script>
 
+const SUPABASE_URL =
+"https://krxigmwxntdwqikumabn.supabase.co";
 
-    function goHome() {
+const SUPABASE_KEY =
+"sb_publishable_rAj3Me-MtVgT7MPT7itNzw_2l1jwcaY";
 
-      showPage("homePage");
+const db =
+window.supabase.createClient(
+SUPABASE_URL,
+SUPABASE_KEY
+);
 
-    }
 
+function showPage(id){
 
-    /*
-    ==========================================
-    REGISTRATION
-    ==========================================
-    */
+document.querySelectorAll(".page").forEach(function(page){
+page.classList.remove("active");
+});
 
-    document
-      .getElementById("registrationForm")
-      .addEventListener(
-        "submit",
-        async function(event) {
+document.getElementById(id).classList.add("active");
 
-          event.preventDefault();
+window.scrollTo(0,0);
 
+}
 
-          const name =
-            document
-              .getElementById("name")
-              .value
-              .trim();
 
+function goHome(){
 
-          const contactDetails =
-            document
-              .getElementById("contactDetails")
-              .value
-              .trim();
+window.location.hash = "";
 
+showPage("home");
 
-          const selectedMethods =
-            Array
-              .from(
-                document.querySelectorAll(
-                  'input[name="contactMethod"]:checked'
-                )
-              )
-              .map(function(input) {
+}
 
-                return input.value;
 
-              });
+function showRegistration(){
 
+window.location.hash = "registration";
 
-          const message =
-            document.getElementById(
-              "formMessage"
-            );
+showPage("registration");
 
+}
 
-          const submitButton =
-            document.getElementById(
-              "submitButton"
-            );
 
+function showSuccess(){
 
-          /*
-          VALIDATION
-          */
+window.location.hash = "success";
 
-          if (!name) {
+showPage("success");
 
-            showError(
-              "Please enter your name."
-            );
+}
 
-            return;
 
-          }
+function loadPage(){
 
+const hash = window.location.hash;
 
-          if (selectedMethods.length === 0) {
+if(hash === "#registration"){
+showPage("registration");
+}
 
-            showError(
-              "Please choose at least one contact method."
-            );
+else if(hash === "#success"){
+showPage("success");
+}
 
-            return;
+else{
+showPage("home");
+}
 
-          }
+}
 
 
-          if (!contactDetails) {
+window.addEventListener("hashchange", loadPage);
 
-            showError(
-              "Please enter your contact details."
-            );
+loadPage();
 
-            return;
 
-          }
+document
+.getElementById("registrationForm")
+.addEventListener("submit", async function(e){
 
+e.preventDefault();
 
-          /*
-          LOADING
-          */
+const name =
+document.getElementById("name").value.trim();
 
-          submitButton.disabled = true;
+const contact =
+document.getElementById("contact").value.trim();
 
-          submitButton.textContent =
-            "REGISTERING...";
+const methods =
+Array.from(
+document.querySelectorAll(
+'input[name="method"]:checked'
+)
+).map(function(item){
+return item.value;
+});
 
-          message.style.display = "none";
+const message =
+document.getElementById("message");
 
+const submit =
+document.getElementById("submit");
 
-          /*
-          SEND TO SUPABASE
-          */
 
-          const { error } =
-            await supabaseClient
-              .from("players")
-              .insert({
+if(!name){
 
-                name: name,
+message.textContent =
+"Please enter your name.";
 
-                contact_method:
-                  selectedMethods.join(", "),
+message.className =
+"message error";
 
-                contact_details:
-                  contactDetails,
+return;
 
-                paid: false
+}
 
-              });
 
+if(methods.length === 0){
 
-          /*
-          ERROR
-          */
+message.textContent =
+"Please choose at least one contact method.";
 
-          if (error) {
+message.className =
+"message error";
 
-            console.error(error);
+return;
 
-            showError(
-              "Something went wrong. Please try again."
-            );
+}
 
-            submitButton.disabled = false;
 
-            submitButton.textContent =
-              "REGISTER";
+if(!contact){
 
-            return;
+message.textContent =
+"Please enter your contact details.";
 
-          }
+message.className =
+"message error";
 
+return;
 
-          /*
-          SUCCESS
-          */
+}
 
-          document
-            .getElementById(
-              "registrationForm"
-            )
-            .reset();
 
+submit.disabled = true;
 
-          submitButton.disabled = false;
+submit.textContent =
+"REGISTERING...";
 
-          submitButton.textContent =
-            "REGISTER";
 
+const result =
+await db
+.from("players")
+.insert({
 
-          message.style.display =
-            "none";
+name:name,
 
+contact_method:
+methods.join(", "),
 
-          showPage(
-            "successPage"
-          );
+contact_details:
+contact,
 
-        }
-      );
+paid:false
 
+});
 
-    /*
-    ==========================================
-    ERROR MESSAGE
-    ==========================================
-    */
 
-    function showError(text) {
+if(result.error){
 
-      const message =
-        document.getElementById(
-          "formMessage"
-        );
+console.error(result.error);
 
+message.textContent =
+"Registration failed. Please try again.";
 
-      message.textContent = text;
+message.className =
+"message error";
 
+submit.disabled = false;
 
-      message.className =
-        "message error";
+submit.textContent =
+"REGISTER";
 
+return;
 
-      message.style.display =
-        "block";
+}
 
-    }
 
-  </script>
+document
+.getElementById("registrationForm")
+.reset();
+
+submit.disabled = false;
+
+submit.textContent =
+"REGISTER";
+
+showSuccess();
+
+});
+
+</script>
 
 </body>
 </html>
