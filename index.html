@@ -509,12 +509,99 @@ input:focus {
 </div>
 
 
+<<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <script>
+
+const SUPABASE_URL = "https://krxigmwxntdwqikumabn.supabase.co";
+
+const SUPABASE_KEY = "sb_publishable_rAj3Me-MtVgT7MPT7itNzw_2l1jwcaY";
+
+const supabase = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
+
 
 function showRegistration() {
   document.getElementById("homeScreen").classList.remove("active");
   document.getElementById("registrationScreen").classList.add("active");
   window.scrollTo(0, 0);
+}
+
+
+function goHome() {
+  document.getElementById("registrationScreen").classList.remove("active");
+  document.getElementById("confirmationScreen").classList.remove("active");
+  document.getElementById("homeScreen").classList.add("active");
+  window.scrollTo(0, 0);
+}
+
+
+async function registerPlayer() {
+
+  const name = document.getElementById("name").value.trim();
+  const contact = document.getElementById("contact").value.trim();
+
+  if (!name) {
+    alert("Please enter your name.");
+    return;
+  }
+
+  if (!contact) {
+    alert("Please enter your contact details.");
+    return;
+  }
+
+  const contactMethods = [];
+
+  if (document.getElementById("phoneCheck").checked) {
+    contactMethods.push("Phone");
+  }
+
+  if (document.getElementById("emailCheck").checked) {
+    contactMethods.push("Email");
+  }
+
+  if (document.getElementById("instagramCheck").checked) {
+    contactMethods.push("Instagram");
+  }
+
+  if (document.getElementById("snapchatCheck").checked) {
+    contactMethods.push("Snapchat");
+  }
+
+  if (contactMethods.length === 0) {
+    alert("Please choose at least one contact method.");
+    return;
+  }
+
+
+  const { error } = await supabase
+    .from("players")
+    .insert({
+      name: name,
+      contact_method: contactMethods.join(", "),
+      contact_details: contact,
+      paid: false
+    });
+
+
+  if (error) {
+    console.error(error);
+    alert("Something went wrong. Please speak to a member of staff.");
+    return;
+  }
+
+
+  document.getElementById("registrationScreen").classList.remove("active");
+  document.getElementById("confirmationScreen").classList.add("active");
+
+  window.scrollTo(0, 0);
+}
+
+</script>
+ 
 }
 
 function goHome() {
