@@ -82,6 +82,8 @@ h1{
   text-transform:uppercase
 }
 
+/* PRIZE */
+
 .prize{
   text-align:center
 }
@@ -98,6 +100,36 @@ h1{
   margin-top:5px
 }
 
+.prize-breakdown{
+  display:flex;
+  justify-content:center;
+  gap:8px;
+  margin-top:18px;
+  flex-wrap:wrap
+}
+
+.prize-place{
+  background:#0b0b0b;
+  border:1px solid #292929;
+  border-radius:12px;
+  padding:10px 12px;
+  min-width:85px
+}
+
+.prize-place strong{
+  display:block;
+  font-size:16px;
+  margin-bottom:4px
+}
+
+.prize-place span{
+  color:#aaa;
+  font-size:12px;
+  font-weight:800
+}
+
+/* ENTRY */
+
 .entry{
   text-align:center
 }
@@ -112,6 +144,8 @@ h1{
   color:#888;
   font-size:13px
 }
+
+/* HIGH SCORE */
 
 .high-score{
   background:white;
@@ -134,13 +168,11 @@ h1{
   font-size:14px
 }
 
-/* =========================================
-   EVENT STATUS
-   ========================================= */
+/* EVENT */
 
 .event-card{
   text-align:center;
-  background:#101010;
+  background:#101010
 }
 
 .event-status-title{
@@ -195,8 +227,11 @@ h1{
   border-radius:10px;
   background:#171717;
   font-size:13px;
-  font-weight:1000
+  font-weight:1000;
+  line-height:1.4
 }
+
+/* CTA */
 
 .cta-wrap{
   margin:22px 0 30px
@@ -230,6 +265,8 @@ h1{
   margin-top:14px
 }
 
+/* HOW IT WORKS */
+
 .how-title,
 .leaderboard-title{
   font-size:25px;
@@ -262,11 +299,14 @@ h1{
   margin:0 0 18px
 }
 
+/* LEADERBOARD */
+
 .player{
   display:flex;
   justify-content:space-between;
   align-items:center;
   background:#151515;
+  border:1px solid transparent;
   border-radius:16px;
   padding:18px;
   margin-bottom:9px
@@ -280,7 +320,8 @@ h1{
 
 .rank{
   font-size:20px;
-  width:30px
+  width:30px;
+  text-align:center
 }
 
 .player-name{
@@ -293,6 +334,30 @@ h1{
   font-weight:1000
 }
 
+.top-one{
+  border-color:#777;
+  background:#1d1d1d
+}
+
+.top-two{
+  border-color:#555;
+  background:#191919
+}
+
+.top-three{
+  border-color:#444;
+  background:#181818
+}
+
+.loading,
+.empty{
+  color:#777;
+  text-align:center;
+  padding:20px
+}
+
+/* FOOTER */
+
 .footer{
   text-align:center;
   color:#555;
@@ -300,6 +365,8 @@ h1{
   line-height:1.6;
   margin-top:35px
 }
+
+/* FORM */
 
 .form-title{
   font-size:32px;
@@ -359,15 +426,15 @@ input[type="email"]{
 }
 
 .notify-option{
-  display:flex;
+  display:flex!important;
   align-items:flex-start;
   gap:10px;
   padding:14px;
   border:1px solid #333;
   border-radius:12px;
   background:#090909;
-  color:#ccc;
-  font-size:13px;
+  color:#ccc!important;
+  font-size:13px!important;
   line-height:1.4
 }
 
@@ -424,6 +491,8 @@ input[type="email"]{
   color:#ffb0b0
 }
 
+/* SUCCESS */
+
 .success-card{
   text-align:center;
   padding:40px 25px
@@ -464,6 +533,10 @@ input[type="email"]{
   .countdown{
     font-size:26px
   }
+
+  .prize-place{
+    min-width:80px
+  }
 }
 </style>
 </head>
@@ -472,9 +545,14 @@ input[type="email"]{
 
 <div class="app">
 
+<!-- =========================================
+     HOME
+========================================= -->
+
 <section id="home" class="page active">
 
 <div class="topbar">
+
 <button
   class="lang"
   id="langToggle"
@@ -482,7 +560,9 @@ input[type="email"]{
 >
 DE
 </button>
+
 </div>
+
 
 <div class="brand">
 
@@ -504,13 +584,15 @@ BEAT TODAY'S HIGH SCORE.
 </div>
 
 
+<!-- PRIZE -->
+
 <div class="card prize">
 
 <div
   class="label"
   id="prizeLabel"
 >
-End of Day 7 Prize
+€700 PRIZE POOL
 </div>
 
 <div class="prize-amount">
@@ -521,11 +603,56 @@ End of Day 7 Prize
   class="prize-sub"
   id="prizeSub"
 >
-Highest official time at the end of Day 7 wins.
+Top 3 players win at the end of Day 7.
+</div>
+
+
+<div class="prize-breakdown">
+
+<div class="prize-place">
+
+<strong>
+🥇 €400
+</strong>
+
+<span id="firstPlace">
+1st Place
+</span>
+
+</div>
+
+
+<div class="prize-place">
+
+<strong>
+🥈 €200
+</strong>
+
+<span id="secondPlace">
+2nd Place
+</span>
+
+</div>
+
+
+<div class="prize-place">
+
+<strong>
+🥉 €100
+</strong>
+
+<span id="thirdPlace">
+3rd Place
+</span>
+
+</div>
+
 </div>
 
 </div>
 
+
+<!-- ENTRY -->
 
 <div class="card entry">
 
@@ -550,9 +677,7 @@ One official dead hang attempt.
 </div>
 
 
-<!-- =========================================
-     EVENT STATUS
-     ========================================= -->
+<!-- EVENT -->
 
 <div class="card event-card">
 
@@ -576,6 +701,7 @@ Loading...
 
 <div
   class="location-title"
+  id="findUsTitle"
 >
 📍 FIND US TODAY
 </div>
@@ -611,6 +737,8 @@ Checking...
 </div>
 
 
+<!-- HIGH SCORE -->
+
 <div class="card high-score">
 
 <div
@@ -620,16 +748,24 @@ Checking...
 Current High Score
 </div>
 
-<div class="score">
-1:47
+<div
+  class="score"
+  id="highScore"
+>
+--
 </div>
 
-<div class="score-name">
-Daniel
+<div
+  class="score-name"
+  id="highScoreName"
+>
+--
 </div>
 
 </div>
 
+
+<!-- CTA -->
 
 <div class="cta-wrap">
 
@@ -651,12 +787,15 @@ Register first. Your official time is recorded by our staff.
 </div>
 
 
+<!-- HOW IT WORKS -->
+
 <div
   class="how-title"
   id="howTitle"
 >
 How It Works
 </div>
+
 
 <div class="card how-card">
 
@@ -706,7 +845,7 @@ Your verified time is added to the leaderboard.
 </strong>
 
 <span id="step4Text">
-The challenge runs for 7 days. The person with the longest verified dead hang at the end of Day 7 wins €700.
+The challenge runs for 7 days. The top 3 players at the end of Day 7 win €400, €200 and €100.
 </span>
 
 </p>
@@ -714,12 +853,15 @@ The challenge runs for 7 days. The person with the longest verified dead hang at
 </div>
 
 
+<!-- LEADERBOARD -->
+
 <div
   class="leaderboard-title"
   id="leaderboardTitle"
 >
 Top 20 Leaderboard
 </div>
+
 
 <p
   class="return-note"
@@ -731,66 +873,8 @@ Feel free to check the leaderboard anytime, see where you stand, and come back t
 
 <div id="leaderboard">
 
-<div class="player">
-
-<div class="player-left">
-
-<div class="rank">
-🥇
-</div>
-
-<div class="player-name">
-Daniel
-</div>
-
-</div>
-
-<div class="player-time">
-1:47
-</div>
-
-</div>
-
-
-<div class="player">
-
-<div class="player-left">
-
-<div class="rank">
-🥈
-</div>
-
-<div class="player-name">
-Marcus
-</div>
-
-</div>
-
-<div class="player-time">
-1:32
-</div>
-
-</div>
-
-
-<div class="player">
-
-<div class="player-left">
-
-<div class="rank">
-🥉
-</div>
-
-<div class="player-name">
-Jason
-</div>
-
-</div>
-
-<div class="player-time">
-1:21
-</div>
-
+<div class="loading" id="leaderboardLoading">
+Loading leaderboard...
 </div>
 
 </div>
@@ -810,7 +894,7 @@ Winner is contacted using the details provided during registration.
 
 <!-- =========================================
      REGISTRATION
-     ========================================= -->
+========================================= -->
 
 <section
   id="registration"
@@ -889,6 +973,21 @@ Phone
 <input
   type="checkbox"
   name="method"
+  value="WhatsApp"
+>
+
+<span id="whatsappText">
+WhatsApp
+</span>
+
+</label>
+
+
+<label class="contact-option">
+
+<input
+  type="checkbox"
+  name="method"
   value="Email"
 >
 
@@ -907,7 +1006,7 @@ Email
   value="Instagram"
 >
 
-<span>
+<span id="instagramText">
 Instagram
 </span>
 
@@ -922,7 +1021,7 @@ Instagram
   value="Snapchat"
 >
 
-<span>
+<span id="snapchatText">
 Snapchat
 </span>
 
@@ -946,7 +1045,7 @@ CONTACT DETAILS
 <input
   id="contact"
   type="text"
-  placeholder="Phone, email or @username"
+  placeholder="Phone, WhatsApp, email, username..."
   required
 >
 
@@ -963,7 +1062,7 @@ CONTACT DETAILS
 >
 
 <span id="notifyText">
-Notify me by email if someone overtakes my leaderboard position.
+Notify me by email if someone beats my score (you can come back and play again)
 </span>
 
 </label>
@@ -988,6 +1087,7 @@ Notify me by email if someone overtakes my leaderboard position.
 >
 BACK
 </button>
+
 
 <button
   type="submit"
@@ -1016,7 +1116,7 @@ Registration information is used to contact the winner and, if selected, send le
 
 <!-- =========================================
      SUCCESS
-     ========================================= -->
+========================================= -->
 
 <section
   id="success"
@@ -1029,12 +1129,14 @@ Registration information is used to contact the winner and, if selected, send le
 ✓
 </div>
 
+
 <h2
   class="success-title"
   id="successTitle"
 >
 YOU'RE IN.
 </h2>
+
 
 <div
   class="success-text"
@@ -1044,6 +1146,7 @@ Your registration has been received.
 <br><br>
 Find the Dead Hang Challenge staff member and get ready for your official attempt.
 </div>
+
 
 <button
   class="back-home"
@@ -1064,6 +1167,10 @@ BACK TO LEADERBOARD
 
 <script>
 
+/* =========================================
+   SUPABASE
+========================================= */
+
 const SUPABASE_URL =
 "https://krxigmwxntdwqikumabn.supabase.co";
 
@@ -1079,7 +1186,7 @@ window.supabase.createClient(
 
 /* =========================================
    TRANSLATIONS
-   ========================================= */
+========================================= */
 
 const translations = {
 
@@ -1089,16 +1196,46 @@ tagline:
 "BEAT TODAY'S HIGH SCORE.",
 
 prizeLabel:
-"End of Day 7 Prize",
+"€700 PRIZE POOL",
 
 prizeSub:
-"Highest official time at the end of Day 7 wins.",
+"Top 3 players win at the end of Day 7.",
+
+firstPlace:
+"1st Place",
+
+secondPlace:
+"2nd Place",
+
+thirdPlace:
+"3rd Place",
 
 entryLabel:
 "Entry Fee",
 
 entryNote:
 "One official dead hang attempt.",
+
+competitionEnds:
+"⏳ COMPETITION ENDS IN",
+
+competitionEnded:
+"🏁 COMPETITION ENDED",
+
+findUs:
+"📍 FIND US TODAY",
+
+liveNow:
+"🟢 LIVE NOW — COME HANG!",
+
+notLive:
+"🔴 NOT LIVE RIGHT NOW — CHECK BACK DURING OUR NEXT SESSION.",
+
+loading:
+"Loading...",
+
+checking:
+"Checking...",
 
 highLabel:
 "Current High Score",
@@ -1134,13 +1271,22 @@ s4t:
 "4. Come back",
 
 s4:
-"The challenge runs for 7 days. The person with the longest verified dead hang at the end of Day 7 wins €700.",
+"The challenge runs for 7 days. The top 3 players at the end of Day 7 win €400, €200 and €100.",
 
 leader:
 "Top 20 Leaderboard",
 
 returnNote:
 "Feel free to check the leaderboard anytime, see where you stand, and come back to try again.",
+
+loadingLeaderboard:
+"Loading leaderboard...",
+
+emptyLeaderboard:
+"No official scores yet. Be the first.",
+
+leaderboardError:
+"Unable to load leaderboard.",
 
 footer:
 "Official time is recorded by challenge staff.<br>Winner is contacted using the details provided during registration.",
@@ -1164,16 +1310,19 @@ contactLabel:
 "CONTACT DETAILS",
 
 contactPlaceholder:
-"Phone, email or @username",
+"Phone, WhatsApp, email, username...",
 
 notify:
-"Notify me by email if someone overtakes my leaderboard position.",
+"Notify me by email if someone beats my score (you can come back and play again)",
 
 back:
 "BACK",
 
 register:
 "REGISTER",
+
+registering:
+"REGISTERING...",
 
 regFooter:
 "Registration information is used to contact the winner and, if selected, send leaderboard notifications.",
@@ -1190,13 +1339,41 @@ successButton:
 phone:
 "Phone",
 
+whatsapp:
+"WhatsApp",
+
 email:
 "Email",
 
+instagram:
+"Instagram",
+
+snapchat:
+"Snapchat",
+
 de:
-"DE"
+"DE",
+
+errorName:
+"Please enter your name.",
+
+errorMethod:
+"Please choose at least one contact method.",
+
+errorContact:
+"Please enter your contact details.",
+
+errorNotify:
+"To receive overtake notifications, select Email and enter your email address.",
+
+errorEmail:
+"Please enter your email address in the contact details field.",
+
+registrationFailed:
+"Registration failed. Please try again."
 
 },
+
 
 de: {
 
@@ -1204,19 +1381,49 @@ tagline:
 "SCHLAG DEN AKTUELLEN HIGH SCORE.",
 
 prizeLabel:
-"Preis am Ende von Tag 7",
+"€700 PREISPOOL",
 
 prizeSub:
-"Die längste bestätigte Zeit am Ende von Tag 7 gewinnt.",
+"DIE TOP 3 SPIELER GEWINNEN AM ENDE VON TAG 7.",
+
+firstPlace:
+"1. PLATZ",
+
+secondPlace:
+"2. PLATZ",
+
+thirdPlace:
+"3. PLATZ",
 
 entryLabel:
-"Teilnahmegebühr",
+"TEILNAHMEGEBÜHR",
 
 entryNote:
-"Ein offizieller Dead-Hang-Versuch.",
+"EIN OFFIZIELLER DEAD-HANG-VERSUCH.",
+
+competitionEnds:
+"⏳ CHALLENGE ENDET IN",
+
+competitionEnded:
+"🏁 CHALLENGE BEENDET",
+
+findUs:
+"📍 FINDE UNS HEUTE",
+
+liveNow:
+"🟢 JETZT LIVE — KOMM VORBEI UND HÄNG!",
+
+notLive:
+"🔴 GERADE NICHT LIVE — SCHAU WÄHREND DER NÄCHSTEN SESSION WIEDER VORBEI.",
+
+loading:
+"Laden...",
+
+checking:
+"Wird geprüft...",
 
 highLabel:
-"Aktueller High Score",
+"AKTUELLER HIGH SCORE",
 
 join:
 "AN DER €10-CHALLENGE TEILNEHMEN →",
@@ -1228,34 +1435,43 @@ how:
 "So funktioniert es",
 
 s1t:
-"1. €10 bezahlen",
+"1. €10 BEZAHLEN",
 
 s1:
 "Bezahle die €10 Teilnahmegebühr, um an der Challenge teilzunehmen.",
 
 s2t:
-"2. Hängen",
+"2. HÄNGEN",
 
 s2:
 "Greif die Stange und halte dich so lange wie möglich. Deine offizielle Zeit wird von unserem Challenge-Team erfasst.",
 
 s3t:
-"3. Auf die Rangliste",
+"3. AUF DIE RANGLISTE",
 
 s3:
 "Deine bestätigte Zeit wird zur Rangliste hinzugefügt.",
 
 s4t:
-"4. Komm wieder",
+"4. KOMM WIEDER",
 
 s4:
-"Die Challenge läuft 7 Tage. Die Person mit der längsten bestätigten Zeit am Ende von Tag 7 gewinnt €700.",
+"Die Challenge läuft 7 Tage. Die Top 3 am Ende von Tag 7 gewinnen €400, €200 und €100.",
 
 leader:
-"Top-20-Rangliste",
+"TOP-20-RANGLISTE",
 
 returnNote:
 "Schau jederzeit auf der Rangliste vorbei, sieh, wo du stehst, und komm wieder, um es erneut zu versuchen.",
+
+loadingLeaderboard:
+"Rangliste wird geladen...",
+
+emptyLeaderboard:
+"Noch keine offiziellen Zeiten. Sei der Erste.",
+
+leaderboardError:
+"Rangliste konnte nicht geladen werden.",
 
 footer:
 "Die offizielle Zeit wird vom Challenge-Team erfasst.<br>Der Gewinner wird über die bei der Registrierung angegebenen Kontaktdaten benachrichtigt.",
@@ -1279,16 +1495,19 @@ contactLabel:
 "KONTAKTDATEN",
 
 contactPlaceholder:
-"Telefon, E-Mail oder @Benutzername",
+"Telefon, WhatsApp, E-Mail, Benutzername...",
 
 notify:
-"Benachrichtige mich per E-Mail, wenn jemand meine Position in der Rangliste überholt.",
+"Benachrichtige mich per E-Mail, wenn jemand meine Zeit schlägt (du kannst wiederkommen und erneut spielen)",
 
 back:
 "ZURÜCK",
 
 register:
 "REGISTRIEREN",
+
+registering:
+"REGISTRIERUNG...",
 
 regFooter:
 "Die Registrierungsdaten werden verwendet, um den Gewinner zu kontaktieren und, falls ausgewählt, Ranglisten-Benachrichtigungen zu senden.",
@@ -1305,11 +1524,38 @@ successButton:
 phone:
 "Telefon",
 
+whatsapp:
+"WhatsApp",
+
 email:
 "E-Mail",
 
+instagram:
+"Instagram",
+
+snapchat:
+"Snapchat",
+
 de:
-"EN"
+"EN",
+
+errorName:
+"Bitte gib deinen Namen ein.",
+
+errorMethod:
+"Bitte wähle mindestens eine Kontaktmethode.",
+
+errorContact:
+"Bitte gib deine Kontaktdaten ein.",
+
+errorNotify:
+"Für Überhol-Benachrichtigungen wähle E-Mail und gib deine E-Mail-Adresse ein.",
+
+errorEmail:
+"Bitte gib deine E-Mail-Adresse bei den Kontaktdaten ein.",
+
+registrationFailed:
+"Registrierung fehlgeschlagen. Bitte versuche es erneut."
 
 }
 
@@ -1322,12 +1568,13 @@ localStorage.getItem("dh_lang") || "en";
 
 /* =========================================
    LANGUAGE
-   ========================================= */
+========================================= */
 
 function applyLanguage(){
 
 const t =
 translations[lang];
+
 
 const map = {
 
@@ -1336,6 +1583,12 @@ tagline:"tagline",
 prizeLabel:"prizeLabel",
 
 prizeSub:"prizeSub",
+
+firstPlace:"firstPlace",
+
+secondPlace:"secondPlace",
+
+thirdPlace:"thirdPlace",
 
 entryLabel:"entryLabel",
 
@@ -1397,22 +1650,30 @@ successButton:"successButton",
 
 phone:"phoneText",
 
-email:"emailText"
+whatsapp:"whatsappText",
+
+email:"emailText",
+
+instagram:"instagramText",
+
+snapchat:"snapchatText",
+
+findUs:"findUsTitle"
 
 };
 
 
-Object.keys(map).forEach(k => {
+Object.keys(map).forEach(key => {
 
 const element =
 document.getElementById(
-  map[k]
+  map[key]
 );
 
 if(element){
 
 element.innerHTML =
-t[k];
+t[key];
 
 }
 
@@ -1440,6 +1701,11 @@ t.de;
 document.documentElement.lang =
 lang;
 
+
+/* Refresh dynamic event text */
+
+updateEventLanguage();
+
 }
 
 
@@ -1450,10 +1716,12 @@ lang === "en"
   ? "de"
   : "en";
 
+
 localStorage.setItem(
   "dh_lang",
   lang
 );
+
 
 applyLanguage();
 
@@ -1462,24 +1730,29 @@ applyLanguage();
 
 /* =========================================
    PAGE NAVIGATION
-   ========================================= */
+========================================= */
 
 function showPage(id){
 
 document
   .querySelectorAll(".page")
   .forEach(
-    p =>
-      p.classList.remove(
+    page =>
+      page.classList.remove(
         "active"
       )
   );
+
 
 document
   .getElementById(id)
   .classList.add("active");
 
-window.scrollTo(0,0);
+
+window.scrollTo(
+  0,
+  0
+);
 
 }
 
@@ -1496,15 +1769,20 @@ showPage("home");
 
 function loadPage(){
 
-const h =
+const hash =
 window.location.hash;
 
+
 showPage(
-  h === "#registration"
-    ? "registration"
-    : h === "#success"
-    ? "success"
-    : "home"
+
+hash === "#registration"
+  ? "registration"
+
+  : hash === "#success"
+  ? "success"
+
+  : "home"
+
 );
 
 }
@@ -1515,38 +1793,311 @@ window.addEventListener(
   loadPage
 );
 
+
 loadPage();
 
-applyLanguage();
+
+/* =========================================
+   TIME FORMAT
+========================================= */
+
+function formatTime(totalSeconds){
+
+const seconds =
+Number(totalSeconds);
+
+
+if(
+  !Number.isFinite(seconds)
+){
+
+return "--";
+
+}
+
+
+const minutes =
+Math.floor(
+  seconds / 60
+);
+
+
+const remaining =
+seconds % 60;
+
+
+return minutes > 0
+
+  ? `${minutes}:${String(
+      remaining
+    ).padStart(2,"0")}`
+
+  : `${remaining}s`;
+
+}
+
+
+/* =========================================
+   SAFE HTML
+========================================= */
+
+function escapeHtml(value){
+
+return String(
+  value || ""
+)
+
+.replace(
+  /[&<>"']/g,
+  function(character){
+
+return {
+
+"&":"&amp;",
+"<":"&lt;",
+">":"&gt;",
+'"':"&quot;",
+"'":"&#039;"
+
+}[character];
+
+  }
+);
+
+}
+
+
+/* =========================================
+   LEADERBOARD
+========================================= */
+
+async function loadLeaderboard(){
+
+const leaderboard =
+document.getElementById(
+  "leaderboard"
+);
+
+
+leaderboard.innerHTML =
+`
+<div class="loading">
+${translations[lang].loadingLeaderboard}
+</div>
+`;
+
+
+try{
+
+const {
+  data,
+  error
+} =
+await db.rpc(
+  "get_leaderboard"
+);
+
+
+if(error){
+
+console.error(
+  error
+);
+
+
+leaderboard.innerHTML =
+`
+<div class="empty">
+${translations[lang].leaderboardError}
+</div>
+`;
+
+
+return;
+
+}
+
+
+if(
+  !data ||
+  data.length === 0
+){
+
+leaderboard.innerHTML =
+`
+<div class="empty">
+${translations[lang].emptyLeaderboard}
+</div>
+`;
+
+
+document.getElementById(
+  "highScore"
+).textContent =
+"--";
+
+
+document.getElementById(
+  "highScoreName"
+).textContent =
+"--";
+
+
+return;
+
+}
+
+
+/* RENDER TOP 20 */
+
+leaderboard.innerHTML =
+data
+.map(
+  (player,index) => {
+
+const position =
+index + 1;
+
+
+let medal =
+position;
+
+
+let className =
+"";
+
+
+if(position === 1){
+
+medal =
+"🥇";
+
+className =
+"top-one";
+
+}
+
+else if(position === 2){
+
+medal =
+"🥈";
+
+className =
+"top-two";
+
+}
+
+else if(position === 3){
+
+medal =
+"🥉";
+
+className =
+"top-three";
+
+}
+
+
+return `
+
+<div class="player ${className}">
+
+<div class="player-left">
+
+<div class="rank">
+${medal}
+</div>
+
+<div class="player-name">
+${escapeHtml(
+  player.name
+)}
+</div>
+
+</div>
+
+<div class="player-time">
+${formatTime(
+  player.official_time_seconds
+)}
+</div>
+
+</div>
+
+`;
+
+  }
+)
+.join("");
+
+
+/* CURRENT HIGH SCORE */
+
+const first =
+data[0];
+
+
+document.getElementById(
+  "highScore"
+).textContent =
+formatTime(
+  first.official_time_seconds
+);
+
+
+document.getElementById(
+  "highScoreName"
+).textContent =
+first.name || "--";
+
+
+}
+catch(error){
+
+console.error(
+  error
+);
+
+
+leaderboard.innerHTML =
+`
+<div class="empty">
+${translations[lang].leaderboardError}
+</div>
+`;
+
+}
+
+}
 
 
 /* =========================================
    REGISTRATION
-   ========================================= */
+========================================= */
 
 document
-  .getElementById(
-    "registrationForm"
-  )
-  .addEventListener(
-    "submit",
-    async function(e){
+.getElementById(
+  "registrationForm"
+)
+.addEventListener(
+  "submit",
+  async function(event){
 
-e.preventDefault();
+event.preventDefault();
 
 
 const name =
 document
-  .getElementById("name")
-  .value
-  .trim();
+.getElementById("name")
+.value
+.trim();
 
 
 const contact =
 document
-  .getElementById("contact")
-  .value
-  .trim();
+.getElementById("contact")
+.value
+.trim();
 
 
 const methods =
@@ -1556,16 +2107,17 @@ Array.from(
   )
 )
 .map(
-  i => i.value
+  input =>
+    input.value
 );
 
 
 const notify =
 document
-  .getElementById(
-    "notifyOvertake"
-  )
-  .checked;
+.getElementById(
+  "notifyOvertake"
+)
+.checked;
 
 
 const message =
@@ -1580,50 +2132,63 @@ document.getElementById(
 );
 
 
+/* NAME */
+
 if(!name){
 
 message.textContent =
-lang === "en"
-  ? "Please enter your name."
-  : "Bitte gib deinen Namen ein.";
+translations[lang]
+.errorName;
+
 
 message.className =
 "message error";
+
 
 return;
 
 }
 
 
-if(methods.length === 0){
+/* CONTACT METHOD */
+
+if(
+  methods.length === 0
+){
 
 message.textContent =
-lang === "en"
-  ? "Please choose at least one contact method."
-  : "Bitte wähle mindestens eine Kontaktmethode.";
+translations[lang]
+.errorMethod;
+
 
 message.className =
 "message error";
+
 
 return;
 
 }
 
+
+/* CONTACT DETAILS */
 
 if(!contact){
 
 message.textContent =
-lang === "en"
-  ? "Please enter your contact details."
-  : "Bitte gib deine Kontaktdaten ein.";
+translations[lang]
+.errorContact;
+
 
 message.className =
 "message error";
+
 
 return;
 
 }
 
+
+/* EMAIL NOTIFICATION */
 
 if(
   notify &&
@@ -1631,57 +2196,86 @@ if(
 ){
 
 message.textContent =
-lang === "en"
-  ? "To receive overtake notifications, select Email and enter your email address."
-  : "Für Überhol-Benachrichtigungen wähle E-Mail und gib deine E-Mail-Adresse ein.";
+translations[lang]
+.errorNotify;
+
 
 message.className =
 "message error";
+
 
 return;
 
 }
 
 
-submit.disabled =
-true;
+/* EMAIL FORMAT */
 
-submit.textContent =
-lang === "en"
-  ? "REGISTERING..."
-  : "REGISTRIERUNG...";
+if(
+  notify &&
+  !contact.includes("@")
+){
 
-
-const insertData = {
-
-name,
-
-contact_method:
-methods.join(", "),
-
-contact_details:
-contact,
-
-paid:
-false
-
-};
+message.textContent =
+translations[lang]
+.errorEmail;
 
 
-if(notify){
+message.className =
+"message error";
 
-insertData.notify_overtake =
-true;
+
+return;
 
 }
 
 
+/* SUBMIT */
+
+submit.disabled =
+true;
+
+
+submit.textContent =
+translations[lang]
+.registering;
+
+
+const insertData = {
+
+name:
+
+name,
+
+contact_method:
+
+methods.join(
+  ", "
+),
+
+contact_details:
+
+contact,
+
+paid:
+
+false,
+
+notify_overtake:
+
+notify
+
+};
+
+
+try{
+
 const result =
 await db
-  .from("players")
-  .insert(
-    insertData
-  );
+.from("players")
+.insert(
+  insertData
+);
 
 
 if(result.error){
@@ -1690,46 +2284,95 @@ console.error(
   result.error
 );
 
+
 message.textContent =
-lang === "en"
-  ? "Registration failed. Please try again."
-  : "Registrierung fehlgeschlagen. Bitte versuche es erneut.";
+translations[lang]
+.registrationFailed;
+
 
 message.className =
 "message error";
 
+
 submit.disabled =
 false;
 
+
 submit.textContent =
-translations[lang].register;
+translations[lang]
+.register;
+
 
 return;
 
 }
 
 
+/* SUCCESS */
+
 document
-  .getElementById(
-    "registrationForm"
-  )
-  .reset();
+.getElementById(
+  "registrationForm"
+)
+.reset();
 
 
 submit.disabled =
 false;
 
-submit.textContent =
-translations[lang].register;
 
-showPage("success");
+submit.textContent =
+translations[lang]
+.register;
+
+
+showPage(
+  "success"
+);
+
+
+/* Refresh leaderboard */
+
+loadLeaderboard();
+
+
+}
+catch(error){
+
+console.error(
+  error
+);
+
+
+message.textContent =
+translations[lang]
+.registrationFailed;
+
+
+message.className =
+"message error";
+
+
+submit.disabled =
+false;
+
+
+submit.textContent =
+translations[lang]
+.register;
+
+}
 
 });
 
 
 /* =========================================
    EVENT SETTINGS
-   ========================================= */
+========================================= */
+
+let competitionEndTime =
+null;
+
 
 async function loadEventSettings(){
 
@@ -1737,20 +2380,29 @@ try{
 
 const response =
 await fetch(
-  "https://krxigmwxntdwqikumabn.supabase.co/rest/v1/rpc/get_site_settings",
-  {
-    method:"POST",
 
-    headers:{
-      "Content-Type":
-        "application/json",
+"https://krxigmwxntdwqikumabn.supabase.co/rest/v1/rpc/get_site_settings",
 
-      "apikey":
-        SUPABASE_KEY
-    },
+{
 
-    body:"{}"
-  }
+method:
+"POST",
+
+headers:{
+
+"Content-Type":
+"application/json",
+
+"apikey":
+SUPABASE_KEY
+
+},
+
+body:
+"{}"
+
+}
+
 );
 
 
@@ -1782,9 +2434,7 @@ return;
 }
 
 
-/* =========================================
-   LOCATION
-   ========================================= */
+/* LOCATION */
 
 const locationName =
 document.getElementById(
@@ -1838,7 +2488,9 @@ if(
 eventHours.textContent =
 `🕐 ${settings.start_time} – ${settings.end_time}`;
 
-}else{
+}
+
+else{
 
 eventHours.textContent =
 "";
@@ -1848,34 +2500,38 @@ eventHours.textContent =
 }
 
 
-/* =========================================
-   LIVE STATUS
-   ========================================= */
+/* LIVE STATUS */
 
 if(liveStatus){
 
 if(settings.live_status){
 
 liveStatus.textContent =
-"🟢 LIVE NOW — COME HANG!";
+translations[lang]
+.liveNow;
 
-}else{
+}
+
+else{
 
 liveStatus.textContent =
-"🔴 NOT LIVE RIGHT NOW — CHECK BACK DURING OUR NEXT SESSION.";
+translations[lang]
+.notLive;
 
 }
 
 }
 
 
-/* =========================================
-   COUNTDOWN
-   ========================================= */
+/* COUNTDOWN */
 
 if(
   settings.competition_end_at
 ){
+
+competitionEndTime =
+settings.competition_end_at;
+
 
 startCountdown(
   settings.competition_end_at
@@ -1883,7 +2539,8 @@ startCountdown(
 
 }
 
-}catch(error){
+}
+catch(error){
 
 console.error(
   "Event settings error:",
@@ -1896,8 +2553,136 @@ console.error(
 
 
 /* =========================================
+   EVENT LANGUAGE
+========================================= */
+
+function updateEventLanguage(){
+
+const t =
+translations[lang];
+
+
+const liveStatus =
+document.getElementById(
+  "liveStatus"
+);
+
+
+const status =
+document.getElementById(
+  "competitionStatus"
+);
+
+
+const location =
+document.getElementById(
+  "locationName"
+);
+
+
+const countdown =
+document.getElementById(
+  "countdown"
+);
+
+
+/* LIVE STATUS */
+
+if(
+  liveStatus &&
+  liveStatus.textContent
+){
+
+const text =
+liveStatus.textContent;
+
+
+if(
+  text.includes("LIVE") ||
+  text.includes("LIVE NOW") ||
+  text.includes("JETZT LIVE")
+){
+
+liveStatus.textContent =
+t.liveNow;
+
+}
+
+else if(
+  text.includes("NOT LIVE") ||
+  text.includes("GERADE NICHT")
+){
+
+liveStatus.textContent =
+t.notLive;
+
+}
+
+}
+
+
+/* COUNTDOWN STATUS */
+
+if(
+  status &&
+  countdown
+){
+
+const difference =
+competitionEndTime
+  ? new Date(
+      competitionEndTime
+    ).getTime()
+    -
+    Date.now()
+  : null;
+
+
+if(
+  difference !== null &&
+  difference <= 0
+){
+
+status.textContent =
+t.competitionEnded;
+
+}
+
+else{
+
+status.textContent =
+t.competitionEnds;
+
+}
+
+}
+
+
+/* LOCATION */
+
+const locationTitle =
+document.getElementById(
+  "findUsTitle"
+);
+
+
+if(locationTitle){
+
+locationTitle.textContent =
+t.findUs;
+
+}
+
+}
+
+
+/* =========================================
    COUNTDOWN
-   ========================================= */
+========================================= */
+
+let countdownInterval =
+null;
+
 
 function startCountdown(endTime){
 
@@ -1913,10 +2698,23 @@ document.getElementById(
 );
 
 
+competitionEndTime =
+endTime;
+
+
+if(countdownInterval){
+
+clearInterval(
+  countdownInterval
+);
+
+}
+
+
 function update(){
 
 const now =
-new Date().getTime();
+Date.now();
 
 
 const end =
@@ -1929,22 +2727,17 @@ const difference =
 end - now;
 
 
-if(difference <= 0){
-
-if(countdown){
+if(
+  difference <= 0
+){
 
 countdown.textContent =
 "00:00:00";
 
-}
-
-
-if(status){
 
 status.textContent =
-"🏁 COMPETITION ENDED";
-
-}
+translations[lang]
+.competitionEnded;
 
 
 return;
@@ -1955,54 +2748,86 @@ return;
 const days =
 Math.floor(
   difference /
-  (1000 * 60 * 60 * 24)
+  (
+    1000 *
+    60 *
+    60 *
+    24
+  )
 );
 
 
 const hours =
 Math.floor(
+
   (
     difference %
-    (1000 * 60 * 60 * 24)
-  ) /
-  (1000 * 60 * 60)
+    (
+      1000 *
+      60 *
+      60 *
+      24
+    )
+  )
+
+  /
+
+  (
+    1000 *
+    60 *
+    60
+  )
+
 );
 
 
 const minutes =
 Math.floor(
+
   (
     difference %
-    (1000 * 60 * 60)
-  ) /
-  (1000 * 60)
+    (
+      1000 *
+      60 *
+      60
+    )
+  )
+
+  /
+
+  (
+    1000 *
+    60
+  )
+
 );
 
 
 const seconds =
 Math.floor(
+
   (
     difference %
-    (1000 * 60)
-  ) /
+    (
+      1000 *
+      60
+    )
+  )
+
+  /
+
   1000
+
 );
 
-
-if(countdown){
 
 countdown.textContent =
 `${days}D ${String(hours).padStart(2,"0")}:${String(minutes).padStart(2,"0")}:${String(seconds).padStart(2,"0")}`;
 
-}
-
-
-if(status){
 
 status.textContent =
-"⏳ COMPETITION ENDS IN";
-
-}
+translations[lang]
+.competitionEnds;
 
 }
 
@@ -2010,6 +2835,7 @@ status.textContent =
 update();
 
 
+countdownInterval =
 setInterval(
   update,
   1000
@@ -2019,8 +2845,12 @@ setInterval(
 
 
 /* =========================================
-   LOAD EVENT SETTINGS
-   ========================================= */
+   INITIAL LOAD
+========================================= */
+
+applyLanguage();
+
+loadLeaderboard();
 
 loadEventSettings();
 
