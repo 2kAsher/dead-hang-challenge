@@ -38,7 +38,6 @@ body{
   border-radius:8px;
   background:#111;
   color:#fff;
-  cursor:pointer;
 }
 
 .lang button.active{
@@ -69,7 +68,7 @@ h2{
   text-align:center;
 }
 
-.prize .amount{
+.amount{
   font-size:48px;
   font-weight:900;
 }
@@ -129,7 +128,7 @@ input{
   margin:0;
 }
 
-button.primary{
+.primary{
   width:100%;
   padding:14px;
   margin-top:10px;
@@ -138,10 +137,9 @@ button.primary{
   background:#fff;
   color:#000;
   font-weight:900;
-  cursor:pointer;
 }
 
-button.primary:disabled{
+.primary:disabled{
   opacity:.5;
 }
 
@@ -183,10 +181,6 @@ button.primary:disabled{
   padding:25px 10px;
 }
 
-.success h2{
-  margin-top:0;
-}
-
 .error{
   color:#ff6b6b;
   margin-top:10px;
@@ -206,251 +200,308 @@ button.primary:disabled{
 
 <div class="container">
 
-  <div class="topbar">
-    <div class="lang">
-      <button id="enBtn" class="active">EN</button>
-      <button id="deBtn">DE</button>
-    </div>
+<div class="topbar">
+  <div class="lang">
+    <button id="enBtn" class="active">EN</button>
+    <button id="deBtn">DE</button>
+  </div>
+</div>
+
+
+<h1>THE DEAD HANG</h1>
+
+<p class="subtitle" data-en>
+How long can you hang?
+</p>
+
+<p class="subtitle" data-de style="display:none">
+Wie lange kannst du hängen?
+</p>
+
+
+<div class="prize">
+
+  <div class="amount">€700</div>
+
+  <strong data-en>
+    PRIZE AT THE END OF DAY 7
+  </strong>
+
+  <strong data-de style="display:none">
+    GEWINN AM ENDE VON TAG 7
+  </strong>
+
+  <p data-en>
+    €10 entry · Longest verified dead hang wins
+  </p>
+
+  <p data-de style="display:none">
+    €10 Teilnahme · Die längste bestätigte Zeit gewinnt
+  </p>
+
+</div>
+
+
+<h2 data-en>HOW IT WORKS</h2>
+
+<h2 data-de style="display:none">
+SO FUNKTIONIERT ES
+</h2>
+
+
+<div class="steps">
+
+  <div class="step">
+    <strong data-en>1. Pay €10</strong>
+    <strong data-de style="display:none">
+      1. €10 bezahlen
+    </strong>
+
+    <span data-en>
+      Pay the entry fee.
+    </span>
+
+    <span data-de style="display:none">
+      Bezahle die Teilnahmegebühr.
+    </span>
   </div>
 
-  <h1>THE DEAD HANG</h1>
 
-  <p class="subtitle" data-en>
-    How long can you hang?
-  </p>
-
-  <p class="subtitle" data-de style="display:none">
-    Wie lange kannst du hängen?
-  </p>
-
-
-  <div class="prize">
-
-    <div class="amount">€700</div>
-
-    <strong data-en>
-      PRIZE AT THE END OF DAY 7
+  <div class="step">
+    <strong data-en>2. Hang</strong>
+    <strong data-de style="display:none">
+      2. Hängen
     </strong>
+
+    <span data-en>
+      Grab the bar and hang as long as possible.
+      Staff records your official time.
+    </span>
+
+    <span data-de style="display:none">
+      Greif die Stange und hänge so lange wie möglich.
+      Das Personal nimmt deine offizielle Zeit auf.
+    </span>
+  </div>
+
+
+  <div class="step">
+    <strong data-en>3. Join the leaderboard</strong>
 
     <strong data-de style="display:none">
-      GEWINN AM ENDE VON TAG 7
+      3. Auf die Rangliste
     </strong>
 
-    <p data-en>
-      €10 entry · Longest verified dead hang wins
-    </p>
+    <span data-en>
+      Your verified time is added to the leaderboard.
+    </span>
 
-    <p data-de style="display:none">
-      €10 Teilnahme · Die längste bestätigte Zeit gewinnt
-    </p>
-
+    <span data-de style="display:none">
+      Deine bestätigte Zeit wird zur Rangliste hinzugefügt.
+    </span>
   </div>
 
 
-  <h2 data-en>HOW IT WORKS</h2>
-  <h2 data-de style="display:none">SO FUNKTIONIERT ES</h2>
+  <div class="step">
+    <strong data-en>4. Come back</strong>
 
-  <div class="steps">
+    <strong data-de style="display:none">
+      4. Komm wieder
+    </strong>
 
-    <div class="step">
-      <strong data-en>1. Pay €10</strong>
-      <strong data-de style="display:none">1. €10 bezahlen</strong>
+    <span data-en>
+      The challenge runs for 7 days.
+      The longest verified dead hang at the end of Day 7 wins €700.
+    </span>
 
-      <span data-en>Pay the entry fee.</span>
-      <span data-de style="display:none">Bezahle die Teilnahmegebühr.</span>
-    </div>
-
-    <div class="step">
-      <strong data-en>2. Hang</strong>
-      <strong data-de style="display:none">2. Hängen</strong>
-
-      <span data-en>
-        Grab the bar and hang as long as possible.
-        Staff records your official time.
-      </span>
-
-      <span data-de style="display:none">
-        Greif die Stange und hänge so lange wie möglich.
-        Das Personal nimmt deine offizielle Zeit auf.
-      </span>
-    </div>
-
-    <div class="step">
-      <strong data-en>3. Join the leaderboard</strong>
-      <strong data-de style="display:none">3. Auf die Rangliste</strong>
-
-      <span data-en>
-        Your verified time is added to the leaderboard.
-      </span>
-
-      <span data-de style="display:none">
-        Deine bestätigte Zeit wird zur Rangliste hinzugefügt.
-      </span>
-    </div>
-
-    <div class="step">
-      <strong data-en>4. Come back</strong>
-      <strong data-de style="display:none">4. Komm wieder</strong>
-
-      <span data-en>
-        The challenge runs for 7 days.
-        The longest verified dead hang at the end of Day 7 wins €700.
-      </span>
-
-      <span data-de style="display:none">
-        Die Challenge läuft 7 Tage.
-        Die längste bestätigte Zeit am Ende von Tag 7 gewinnt €700.
-      </span>
-    </div>
-
+    <span data-de style="display:none">
+      Die Challenge läuft 7 Tage.
+      Die längste bestätigte Zeit am Ende von Tag 7 gewinnt €700.
+    </span>
   </div>
 
-
-  <p class="note" data-en>
-    Feel free to check the leaderboard anytime, see where you stand,
-    and come back to try again.
-  </p>
-
-  <p class="note" data-de style="display:none">
-    Schau jederzeit auf der Rangliste vorbei, sieh, wo du stehst,
-    und komm wieder, um es erneut zu versuchen.
-  </p>
+</div>
 
 
-  <h2 data-en>TOP 20 LEADERBOARD</h2>
-  <h2 data-de style="display:none">TOP-20-RANGLISTE</h2>
+<p class="note" data-en>
+Feel free to check the leaderboard anytime, see where you stand,
+and come back to try again.
+</p>
 
-  <div id="leaderboard" class="leaderboard">
-    <p class="small">Loading...</p>
-  </div>
-
-
-  <h2 data-en>ENTER THE CHALLENGE</h2>
-  <h2 data-de style="display:none">AN DER CHALLENGE TEILNEHMEN</h2>
-
-  <div class="card">
-
-    <form id="entryForm">
-
-      <input
-        id="name"
-        type="text"
-        placeholder="Your name"
-        required
-      >
-
-      <div class="small">
-        Contact method
-      </div>
-
-      <label class="checkbox">
-        <input
-          type="checkbox"
-          name="contactMethod"
-          value="Email"
-        >
-        Email
-      </label>
-
-      <label class="checkbox">
-        <input
-          type="checkbox"
-          name="contactMethod"
-          value="Phone"
-        >
-        Phone
-      </label>
-
-      <label class="checkbox">
-        <input
-          type="checkbox"
-          name="contactMethod"
-          value="Instagram"
-        >
-        Instagram
-      </label>
-
-      <label class="checkbox">
-        <input
-          type="checkbox"
-          name="contactMethod"
-          value="Snapchat"
-        >
-        Snapchat
-      </label>
-
-      <input
-        id="contactDetails"
-        type="text"
-        placeholder="Contact details"
-        required
-      >
-
-      <label class="checkbox">
-
-        <input
-          id="notifyOvertake"
-          type="checkbox"
-        >
-
-        <span data-en>
-          Notify me if someone beats my leaderboard time
-        </span>
-
-        <span data-de style="display:none">
-          Benachrichtige mich, wenn jemand meine Zeit schlägt
-        </span>
-
-      </label>
-
-      <button
-        id="submitBtn"
-        class="primary"
-        type="submit"
-      >
-        REGISTER — €10
-      </button>
-
-      <div
-        id="formError"
-        class="error"
-      ></div>
-
-    </form>
+<p class="note" data-de style="display:none">
+Schau jederzeit auf der Rangliste vorbei, sieh, wo du stehst,
+und komm wieder, um es erneut zu versuchen.
+</p>
 
 
-    <div
-      id="success"
-      class="success"
-    >
+<!-- ========================= -->
+<!-- ENTER CHALLENGE FIRST -->
+<!-- ========================= -->
 
-      <h2 data-en>YOU'RE IN 🔥</h2>
+<h2 data-en>ENTER THE CHALLENGE</h2>
 
-      <h2 data-de style="display:none">
-        DU BIST DABEI 🔥
-      </h2>
-
-      <p data-en>
-        Your registration has been received.
-      </p>
-
-      <p data-de style="display:none">
-        Deine Anmeldung wurde erhalten.
-      </p>
-
-      <p class="note">
-        Your official time will be recorded by staff
-        when you complete the challenge.
-      </p>
-
-    </div>
-
-  </div>
+<h2 data-de style="display:none">
+AN DER CHALLENGE TEILNEHMEN
+</h2>
 
 
-  <div class="footer">
-    THE DEAD HANG CHALLENGE
-  </div>
+<div class="card">
+
+<form id="entryForm">
+
+<input
+  id="name"
+  type="text"
+  placeholder="Your name"
+  required
+>
+
+
+<div class="small">
+Contact method
+</div>
+
+
+<label class="checkbox">
+<input
+  type="checkbox"
+  name="contactMethod"
+  value="Email"
+>
+Email
+</label>
+
+
+<label class="checkbox">
+<input
+  type="checkbox"
+  name="contactMethod"
+  value="Phone"
+>
+Phone
+</label>
+
+
+<label class="checkbox">
+<input
+  type="checkbox"
+  name="contactMethod"
+  value="Instagram"
+>
+Instagram
+</label>
+
+
+<label class="checkbox">
+<input
+  type="checkbox"
+  name="contactMethod"
+  value="Snapchat"
+>
+Snapchat
+</label>
+
+
+<input
+  id="contactDetails"
+  type="text"
+  placeholder="Contact details"
+  required
+>
+
+
+<label class="checkbox">
+
+<input
+  id="notifyOvertake"
+  type="checkbox"
+>
+
+<span data-en>
+Notify me if someone beats my leaderboard time
+</span>
+
+<span data-de style="display:none">
+Benachrichtige mich, wenn jemand meine Zeit schlägt
+</span>
+
+</label>
+
+
+<button
+  id="submitBtn"
+  class="primary"
+  type="submit"
+>
+REGISTER — €10
+</button>
+
+
+<div
+  id="formError"
+  class="error"
+></div>
+
+</form>
+
+
+<div
+  id="success"
+  class="success"
+>
+
+<h2 data-en>
+YOU'RE IN 🔥
+</h2>
+
+<h2 data-de style="display:none">
+DU BIST DABEI 🔥
+</h2>
+
+<p data-en>
+Your registration has been received.
+</p>
+
+<p data-de style="display:none">
+Deine Anmeldung wurde erhalten.
+</p>
+
+<p class="note">
+Your official time will be recorded by staff
+when you complete the challenge.
+</p>
+
+</div>
+
+</div>
+
+
+<!-- ========================= -->
+<!-- LEADERBOARD SECOND -->
+<!-- ========================= -->
+
+<h2 data-en>
+TOP 20 LEADERBOARD
+</h2>
+
+<h2 data-de style="display:none">
+TOP-20-RANGLISTE
+</h2>
+
+
+<div
+  id="leaderboard"
+  class="leaderboard"
+>
+<p class="small">
+Loading leaderboard...
+</p>
+</div>
+
+
+<div class="footer">
+THE DEAD HANG CHALLENGE
+</div>
 
 </div>
 
@@ -463,21 +514,22 @@ import {
 
 
 const SUPABASE_URL =
-  "https://krxigmwxntdwqikumabn.supabase.co";
+"https://krxigmwxntdwqikumabn.supabase.co";
+
 
 const SUPABASE_KEY =
-  "sb_publishable_rAj3Me-MtVgT7MPT7itNzw_2l1jwcaY";
+"sb_publishable_rAj3Me-MtVgT7MPT7itNzw_2l1jwcaY";
 
 
 const supabase =
-  createClient(
-    SUPABASE_URL,
-    SUPABASE_KEY
-  );
+createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
 
 
-const $ = id =>
-  document.getElementById(id);
+const $ =
+id => document.getElementById(id);
 
 
 // =========================
@@ -486,35 +538,45 @@ const $ = id =>
 
 function setLanguage(language){
 
-  document.querySelectorAll("[data-en]")
+  document
+    .querySelectorAll("[data-en]")
     .forEach(el => {
 
       el.style.display =
         language === "en"
-          ? ""
-          : "none";
+        ? ""
+        : "none";
 
     });
 
-  document.querySelectorAll("[data-de]")
+
+  document
+    .querySelectorAll("[data-de]")
     .forEach(el => {
 
       el.style.display =
         language === "de"
-          ? ""
-          : "none";
+        ? ""
+        : "none";
 
     });
 
-  $("#enBtn").classList.toggle(
-    "active",
-    language === "en"
-  );
 
-  $("#deBtn").classList.toggle(
-    "active",
-    language === "de"
-  );
+  $("#enBtn")
+    .classList
+    .toggle(
+      "active",
+      language === "en"
+    );
+
+
+  $("#deBtn")
+    .classList
+    .toggle(
+      "active",
+      language === "de"
+    );
+
 
   localStorage.setItem(
     "deadHangLanguage",
@@ -524,18 +586,18 @@ function setLanguage(language){
 
 
 $("#enBtn").onclick =
-  () => setLanguage("en");
+() => setLanguage("en");
+
 
 $("#deBtn").onclick =
-  () => setLanguage("de");
+() => setLanguage("de");
 
 
-const savedLanguage =
+setLanguage(
   localStorage.getItem(
     "deadHangLanguage"
-  ) || "en";
-
-setLanguage(savedLanguage);
+  ) || "en"
+);
 
 
 // =========================
@@ -546,9 +608,6 @@ function formatTime(seconds){
 
   const total =
     Number(seconds);
-
-  if(!Number.isFinite(total))
-    return "-";
 
   const minutes =
     Math.floor(total / 60);
@@ -569,68 +628,106 @@ async function loadLeaderboard(){
   const board =
     $("#leaderboard");
 
-  const {
-    data,
-    error
-  } = await supabase.rpc(
-    "get_leaderboard"
-  );
-
-
-  if(error){
-
-    console.error(
-      "Leaderboard error:",
-      error
-    );
-
-    board.innerHTML =
-      `<p class="small">
-        Leaderboard temporarily unavailable.
-      </p>`;
-
-    return;
-  }
-
-
-  if(!data || data.length === 0){
-
-    board.innerHTML =
-      `<p class="small">
-        No verified scores yet. Be the first.
-      </p>`;
-
-    return;
-  }
-
 
   board.innerHTML =
-    data.map((player,index) => `
+    '<p class="small">Loading leaderboard...</p>';
 
-      <div class="row">
 
-        <div class="rank">
-          #${index + 1}
-        </div>
+  try{
 
-        <div>
-          ${escapeHtml(player.name)}
-        </div>
+    const {
+      data,
+      error
+    } =
+    await supabase
+      .rpc("get_leaderboard");
 
-        <div class="time">
-          ${formatTime(
-            player.official_time_seconds
-          )}
-        </div>
 
-      </div>
+    if(error){
 
-    `).join("");
+      console.error(
+        "Leaderboard error:",
+        error
+      );
+
+
+      board.innerHTML =
+      `
+        <p class="error">
+          Leaderboard error:
+          ${escapeHtml(error.message)}
+        </p>
+      `;
+
+      return;
+    }
+
+
+    if(!data || data.length === 0){
+
+      board.innerHTML =
+      `
+        <p class="small">
+          No verified scores yet.
+          Be the first.
+        </p>
+      `;
+
+      return;
+    }
+
+
+    board.innerHTML =
+      data
+        .slice(0,20)
+        .map(
+          (player,index) => `
+
+            <div class="row">
+
+              <div class="rank">
+                #${index + 1}
+              </div>
+
+              <div>
+                ${escapeHtml(
+                  player.name
+                )}
+              </div>
+
+              <div class="time">
+                ${formatTime(
+                  player.official_time_seconds
+                )}
+              </div>
+
+            </div>
+
+          `
+        )
+        .join("");
+
+  }catch(error){
+
+    console.error(error);
+
+
+    board.innerHTML =
+    `
+      <p class="error">
+        Leaderboard error:
+        ${escapeHtml(
+          error.message ||
+          "Unknown error"
+        )}
+      </p>
+    `;
+  }
 }
 
 
-// Refresh leaderboard
 loadLeaderboard();
+
 
 setInterval(
   loadLeaderboard,
@@ -642,7 +739,8 @@ setInterval(
 // REGISTRATION
 // =========================
 
-$("#entryForm").addEventListener(
+$("#entryForm")
+.addEventListener(
   "submit",
   async event => {
 
@@ -650,26 +748,32 @@ $("#entryForm").addEventListener(
 
 
     const name =
-      $("#name").value.trim();
+      $("#name")
+      .value
+      .trim();
+
 
     const contactDetails =
       $("#contactDetails")
-        .value
-        .trim();
+      .value
+      .trim();
+
 
     const methods =
       Array.from(
         document.querySelectorAll(
           'input[name="contactMethod"]:checked'
         )
-      ).map(
+      )
+      .map(
         checkbox =>
           checkbox.value
       );
 
 
     const notifyOvertake =
-      $("#notifyOvertake").checked;
+      $("#notifyOvertake")
+      .checked;
 
 
     $("#formError")
@@ -680,7 +784,7 @@ $("#entryForm").addEventListener(
 
       $("#formError")
         .textContent =
-          "Please enter your name.";
+        "Please enter your name.";
 
       return;
     }
@@ -690,7 +794,7 @@ $("#entryForm").addEventListener(
 
       $("#formError")
         .textContent =
-          "Please select a contact method.";
+        "Please select a contact method.";
 
       return;
     }
@@ -700,7 +804,7 @@ $("#entryForm").addEventListener(
 
       $("#formError")
         .textContent =
-          "Please enter your contact details.";
+        "Please enter your contact details.";
 
       return;
     }
@@ -713,7 +817,7 @@ $("#entryForm").addEventListener(
 
       $("#formError")
         .textContent =
-          "Email must be selected for overtake notifications.";
+        "Email must be selected for overtake notifications.";
 
       return;
     }
@@ -723,7 +827,9 @@ $("#entryForm").addEventListener(
       $("#submitBtn");
 
 
-    submitButton.disabled = true;
+    submitButton.disabled =
+      true;
+
 
     submitButton.textContent =
       "REGISTERING...";
@@ -731,7 +837,8 @@ $("#entryForm").addEventListener(
 
     const {
       error
-    } = await supabase
+    } =
+    await supabase
       .from("players")
       .insert({
 
@@ -758,33 +865,40 @@ $("#entryForm").addEventListener(
 
       console.error(error);
 
+
       $("#formError")
         .textContent =
-          error.message ||
-          "Registration failed.";
+        error.message ||
+        "Registration failed.";
+
 
       submitButton.disabled =
         false;
 
+
       submitButton.textContent =
         "REGISTER — €10";
+
 
       return;
     }
 
 
     $("#entryForm")
-      .style.display = "none";
+      .style.display =
+      "none";
+
 
     $("#success")
-      .style.display = "block";
+      .style.display =
+      "block";
 
   }
 );
 
 
 // =========================
-// SECURITY / DISPLAY ESCAPE
+// ESCAPE HTML
 // =========================
 
 function escapeHtml(value){
@@ -793,11 +907,13 @@ function escapeHtml(value){
     .replace(
       /[&<>"']/g,
       character => ({
+
         "&":"&amp;",
         "<":"&lt;",
         ">":"&gt;",
         '"':"&quot;",
         "'":"&#039;"
+
       }[character])
     );
 }
