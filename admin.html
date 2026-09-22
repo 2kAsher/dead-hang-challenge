@@ -1,0 +1,236 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Dead Hang Staff</title>
+
+<style>
+body{
+  font-family:Arial;
+  background:#050505;
+  color:#fff;
+  max-width:650px;
+  margin:auto;
+  padding:25px
+}
+
+input,button{
+  padding:12px;
+  border-radius:8px;
+  border:1px solid #333;
+  background:#111;
+  color:#fff;
+  width:100%;
+  margin:6px 0
+}
+
+button{
+  background:#fff;
+  color:#000;
+  font-weight:800;
+  cursor:pointer
+}
+
+.player{
+  padding:12px;
+  border:1px solid #222;
+  margin:8px 0;
+  border-radius:10px
+}
+</style>
+</head>
+
+<body>
+
+<h1>THE DEAD HANG — STAFF</h1>
+
+<p>
+Use this page to record an official verified time.
+Keep this page private.
+</p>
+
+<label>Admin secret</label>
+
+<input
+  id="secret"
+  type="password"
+>
+
+<button id="load">
+  LOAD UNVERIFIED PLAYERS
+</button>
+
+<div id="list"></div>
+
+<script type="module">
+
+import {
+  createClient
+} from "https://esm.sh/@supabase/supabase-js@2";
+
+const URL =
+  "https://krxigmwxntdwqikumabn.supabase.co";
+
+const KEY =
+  "sb_publishable_rAj3Me-MtVgT7MPT7itNzw_2l1jwcaY";
+
+const supabase =
+  createClient(URL, KEY);
+
+const $ = x =>
+  document.querySelector(x);
+
+
+async function load(){
+
+  const {
+    data,
+    error
+  } = await supabase
+    .from("players")
+    .select(
+      "id,name,contact_method,contact_details,official_time_seconds"
+    )
+    .is(
+      "official_time_seconds",
+      null
+    )
+    .order(
+      "created_at",
+      {ascending:true}
+    );
+
+  if(error){
+
+    $("#list").textContent =
+      error.message;
+
+    return;
+  }
+
+  $("#list").innerHTML =
+    (data || []).map(p => `
+
+      <div class="player">
+
+        <b>${esc(p.name)}</b>
+        <br>
+
+        <small>
+          ${esc(p.contact_method || "")}
+          ·
+          ${esc(p.contact_details || "")}
+        </small>
+
+        <input
+          id="t-${p.id}"
+          placeholder="Official time in seconds, e.g. 107"
+        >
+
+        <button
+          onclick="score('${p.id}')"
+        >
+          SAVE OFFICIAL TIME
+        </button>
+
+      </div>
+
+    `).join("")
+
+    ||
+
+    "<p>No unverified players.</p>";
+}
+
+
+window.score =
+async function(id){
+
+  const seconds =
+    Number(
+      document.querySelector(
+        "#t-" + id
+      ).value
+    );
+
+  if(
+    !Number.isInteger(seconds)
+    ||
+    seconds <= 0
+  ){
+
+    alert(
+      "Enter time in seconds."
+    );
+
+    return;
+  }
+
+  const r =
+    await fetch(
+      URL +
+      "/functions/v1/record-score",
+      {
+        method:"POST",
+
+        headers:{
+          "Content-Type":
+            "application/json",
+
+          "x-admin-secret":
+            $("#secret").value
+        },
+
+        body:JSON.stringify({
+          player_id:id,
+          official_time_seconds:
+            seconds
+        })
+      }
+    );
+
+  const j =
+    await r.json();
+
+  if(!r.ok){
+
+    alert(
+      j.error ||
+      "Failed"
+    );
+
+    return;
+  }
+
+  alert(
+    `Saved. New rank: #${j.newRank}. Emails sent: ${j.notified}`
+  );
+
+  load();
+};
+
+
+function esc(s){
+
+  return String(s || "")
+    .replace(
+      /[&<>"']/g,
+      c => ({
+        "&":"&amp;",
+        "<":"&lt;",
+        ">":"&gt;",
+        '"':"&quot;",
+        "'":"&#039;"
+      }[c])
+    );
+}
+
+
+$("#load").onclick =
+  load;
+
+</script>
+
+</body>
+</html>
