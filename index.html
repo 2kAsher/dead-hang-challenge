@@ -1,754 +1,1150 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dead Hang Challenge</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<style>
-*{box-sizing:border-box}
+  <title>The Dead Hang Challenge</title>
 
-body{
-margin:0;
-background:#050505;
-color:white;
-font-family:Arial,Helvetica,sans-serif;
-}
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-.app{
-max-width:520px;
-margin:auto;
-padding:25px 18px 50px;
-}
+    body {
+      background: #050505;
+      color: #ffffff;
+      font-family: Arial, Helvetica, sans-serif;
+      min-height: 100vh;
+    }
 
-.page{display:none}
-.page.active{display:block}
+    .container {
+      width: 100%;
+      max-width: 520px;
+      margin: 0 auto;
+      padding: 24px 18px 50px;
+    }
 
-.brand{
-text-align:center;
-margin:10px 0 35px;
-}
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 35px;
+    }
 
-.brand-small{
-font-size:13px;
-font-weight:900;
-letter-spacing:5px;
-color:#aaa;
-}
+    .logo {
+      font-size: 18px;
+      font-weight: 900;
+      letter-spacing: 2px;
+    }
 
-h1{
-font-size:46px;
-line-height:.95;
-margin:10px 0;
-font-weight:1000;
-letter-spacing:-2px;
-}
+    .language button {
+      background: transparent;
+      border: 1px solid #333;
+      color: #aaa;
+      padding: 7px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 12px;
+    }
 
-.tagline{
-color:#999;
-font-size:15px;
-font-weight:700;
-}
+    .language button.active {
+      color: #fff;
+      border-color: #fff;
+    }
 
-.card{
-background:#151515;
-border:1px solid #252525;
-border-radius:22px;
-padding:24px;
-margin-bottom:14px;
-}
+    .hero {
+      text-align: center;
+      margin-bottom: 28px;
+    }
 
-.label{
-font-size:12px;
-font-weight:900;
-letter-spacing:2px;
-color:#999;
-text-transform:uppercase;
-}
+    .hero h1 {
+      font-size: 42px;
+      line-height: 0.95;
+      font-weight: 900;
+      letter-spacing: -2px;
+      margin-bottom: 15px;
+    }
 
-.prize{text-align:center}
+    .hero p {
+      color: #999;
+      font-size: 15px;
+      line-height: 1.5;
+    }
 
-.prize-amount{
-font-size:55px;
-font-weight:1000;
-margin-top:5px;
-}
+    .prize-card {
+      border: 1px solid #292929;
+      border-radius: 14px;
+      padding: 22px;
+      text-align: center;
+      margin: 25px 0 14px;
+      background: #0a0a0a;
+    }
 
-.prize-sub{
-color:#999;
-font-size:14px;
-margin-top:5px;
-}
+    .prize-label {
+      color: #888;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 8px;
+    }
 
-.entry{text-align:center}
+    .prize {
+      font-size: 52px;
+      font-weight: 900;
+      letter-spacing: -2px;
+    }
 
-.entry-price{
-font-size:40px;
-font-weight:1000;
-margin-top:5px;
-}
+    .prize-sub {
+      color: #777;
+      font-size: 12px;
+      margin-top: 5px;
+    }
 
-.entry-note{
-color:#888;
-font-size:13px;
-}
+    .fee {
+      display: flex;
+      justify-content: space-between;
+      border: 1px solid #222;
+      padding: 15px 17px;
+      border-radius: 10px;
+      margin-bottom: 18px;
+    }
 
-.high-score{
-background:white;
-color:black;
-text-align:center;
-}
+    .fee span:first-child {
+      color: #999;
+    }
 
-.high-score .label{color:#555}
+    .fee span:last-child {
+      font-weight: bold;
+    }
 
-.score{
-font-size:58px;
-font-weight:1000;
-margin-top:5px;
-}
+    .button {
+      display: block;
+      width: 100%;
+      border: none;
+      background: #fff;
+      color: #000;
+      padding: 17px;
+      border-radius: 9px;
+      font-size: 14px;
+      font-weight: 900;
+      cursor: pointer;
+      letter-spacing: 0.5px;
+      text-decoration: none;
+      text-align: center;
+    }
 
-.score-name{
-color:#555;
-font-size:14px;
-}
+    .button:hover {
+      opacity: 0.9;
+    }
 
-.cta-wrap{
-margin:22px 0 32px;
-}
+    .section {
+      margin-top: 45px;
+    }
 
-.cta{
-display:block;
-width:100%;
-padding:24px 15px;
-border:0;
-border-radius:18px;
-background:white;
-color:black;
-font-size:20px;
-font-weight:1000;
-text-align:center;
-text-decoration:none;
-box-shadow:0 7px 0 #777;
-cursor:pointer;
-}
+    .section-title {
+      font-size: 13px;
+      font-weight: 900;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
 
-.cta:active{
-transform:translateY(5px);
-box-shadow:0 2px 0 #777;
-}
+    .how-step {
+      display: flex;
+      gap: 14px;
+      margin-bottom: 19px;
+    }
 
-.cta-small{
-text-align:center;
-color:#777;
-font-size:12px;
-margin-top:14px;
-}
+    .number {
+      min-width: 28px;
+      height: 28px;
+      border: 1px solid #444;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: bold;
+    }
 
-.leaderboard-title{
-font-size:25px;
-font-weight:1000;
-margin-bottom:15px;
-}
+    .how-step strong {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 14px;
+    }
 
-.player{
-display:flex;
-justify-content:space-between;
-align-items:center;
-background:#151515;
-border-radius:16px;
-padding:18px;
-margin-bottom:9px;
-}
+    .how-step p {
+      color: #888;
+      font-size: 13px;
+      line-height: 1.5;
+    }
 
-.player-left{
-display:flex;
-align-items:center;
-gap:12px;
-}
+    .leaderboard-box {
+      border: 1px solid #222;
+      border-radius: 12px;
+      overflow: hidden;
+    }
 
-.rank{
-font-size:20px;
-width:30px;
-}
+    .leaderboard-header,
+    .player {
+      display: grid;
+      grid-template-columns: 45px 1fr 70px;
+      align-items: center;
+      padding: 14px 15px;
+    }
 
-.player-name{
-font-weight:900;
-font-size:18px;
-}
+    .leaderboard-header {
+      background: #0b0b0b;
+      color: #666;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
 
-.player-time{
-font-size:18px;
-font-weight:1000;
-}
+    .player {
+      border-top: 1px solid #191919;
+      font-size: 14px;
+    }
 
-.footer{
-text-align:center;
-color:#555;
-font-size:11px;
-line-height:1.6;
-margin-top:35px;
-}
+    .rank {
+      color: #777;
+    }
 
-.form-title{
-font-size:32px;
-font-weight:1000;
-margin:0 0 8px;
-}
+    .time {
+      text-align: right;
+      font-weight: 900;
+    }
 
-.form-subtitle{
-color:#888;
-line-height:1.5;
-margin-bottom:25px;
-}
+    .loading {
+      padding: 20px;
+      text-align: center;
+      color: #666;
+      font-size: 13px;
+    }
 
-.field{
-margin-bottom:20px;
-}
+    .leaderboard-note {
+      color: #777;
+      font-size: 12px;
+      line-height: 1.5;
+      margin-top: 12px;
+    }
 
-.field label{
-display:block;
-font-size:13px;
-font-weight:900;
-color:#ccc;
-margin-bottom:9px;
-}
+    .form-group {
+      margin-bottom: 18px;
+    }
 
-input[type="text"]{
-width:100%;
-padding:16px;
-border-radius:12px;
-border:1px solid #333;
-background:#090909;
-color:white;
-font-size:16px;
-outline:none;
-}
+    label {
+      display: block;
+      font-size: 12px;
+      color: #aaa;
+      margin-bottom: 8px;
+    }
 
-.contact-options{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:9px;
-}
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"] {
+      width: 100%;
+      padding: 14px;
+      background: #0b0b0b;
+      border: 1px solid #292929;
+      border-radius: 8px;
+      color: #fff;
+      outline: none;
+      font-size: 14px;
+    }
 
-.contact-option{
-display:flex;
-align-items:center;
-gap:8px;
-padding:14px;
-border:1px solid #333;
-border-radius:12px;
-background:#090909;
-font-size:14px;
-}
+    input:focus {
+      border-color: #666;
+    }
 
-.contact-option input{
-accent-color:white;
-}
+    .checkbox-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 9px;
+      margin: 10px 0;
+      color: #aaa;
+      font-size: 13px;
+      line-height: 1.4;
+    }
 
-.form-buttons{
-display:flex;
-gap:10px;
-}
+    .checkbox-row input {
+      margin-top: 2px;
+    }
 
-.secondary,
-.submit,
-.back-home{
-padding:16px;
-border-radius:13px;
-font-weight:1000;
-font-size:15px;
-cursor:pointer;
-}
+    .error {
+      color: #ff7070;
+      font-size: 12px;
+      margin-top: 8px;
+    }
 
-.secondary{
-flex:1;
-background:#151515;
-color:white;
-border:1px solid #333;
-}
+    .success {
+      text-align: center;
+      padding-top: 50px;
+    }
 
-.submit{
-flex:2;
-background:white;
-color:black;
-border:0;
-}
+    .success h2 {
+      font-size: 32px;
+      margin-bottom: 14px;
+    }
 
-.submit:disabled{
-opacity:.5;
-}
+    .success p {
+      color: #888;
+      font-size: 14px;
+      line-height: 1.6;
+      margin-bottom: 25px;
+    }
 
-.message{
-display:none;
-padding:13px;
-border-radius:12px;
-margin-bottom:15px;
-font-size:14px;
-}
+    .page {
+      display: none;
+    }
 
-.message.error{
-display:block;
-background:#2a1111;
-border:1px solid #5b2222;
-color:#ffb0b0;
-}
+    .page.active {
+      display: block;
+    }
 
-.success-card{
-text-align:center;
-padding:40px 25px;
-}
+    .back {
+      color: #777;
+      font-size: 13px;
+      text-decoration: none;
+      display: inline-block;
+      margin-bottom: 25px;
+      cursor: pointer;
+    }
 
-.success-icon{
-font-size:60px;
-}
+    .footer {
+      text-align: center;
+      color: #444;
+      font-size: 11px;
+      margin-top: 50px;
+      line-height: 1.6;
+    }
 
-.success-title{
-font-size:40px;
-font-weight:1000;
-}
+    @media (max-width: 400px) {
+      .hero h1 {
+        font-size: 36px;
+      }
 
-.success-text{
-color:#999;
-line-height:1.6;
-}
-
-.back-home{
-width:100%;
-margin-top:25px;
-background:#151515;
-color:white;
-border:1px solid #333;
-}
-
-@media(max-width:380px){
-h1{font-size:40px}
-.contact-options{grid-template-columns:1fr}
-}
-</style>
+      .prize {
+        font-size: 46px;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-<div class="app">
+<div class="container">
 
-<!-- HOME -->
-<section id="home" class="page active">
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <div class="logo">THE DEAD HANG</div>
 
-<div class="brand">
-<div class="brand-small">THE</div>
-<h1>DEAD HANG</h1>
-<div class="tagline">BEAT TODAY'S HIGH SCORE.</div>
+    <div class="language">
+      <button id="enBtn" class="active" onclick="setLanguage('en')">EN</button>
+      <button id="deBtn" onclick="setLanguage('de')">DE</button>
+    </div>
+  </div>
+
+
+  <!-- HOME PAGE -->
+  <div id="homePage" class="page active">
+
+    <div class="hero">
+      <h1 id="heroTitle">HOW LONG<br>CAN YOU HANG?</h1>
+
+      <p id="heroText">
+        One bar. One challenge.<br>
+        Hang as long as you can.
+      </p>
+    </div>
+
+
+    <div class="prize-card">
+      <div class="prize-label" id="prizeLabel">
+        End of Day 7 Prize
+      </div>
+
+      <div class="prize">€700</div>
+
+      <div class="prize-sub" id="prizeSub">
+        Longest verified dead hang wins.
+      </div>
+    </div>
+
+
+    <div class="fee">
+      <span id="entryText">Entry Fee</span>
+      <span>€10</span>
+    </div>
+
+
+    <a class="button" onclick="showPage('registration')" id="joinButton">
+      JOIN THE €10 CHALLENGE →
+    </a>
+
+
+    <!-- HOW IT WORKS -->
+    <div class="section">
+
+      <div class="section-title" id="howTitle">
+        How It Works
+      </div>
+
+      <div class="how-step">
+        <div class="number">1</div>
+        <div>
+          <strong id="step1Title">Pay €10</strong>
+          <p id="step1Text">Pay the €10 entry fee to enter the challenge.</p>
+        </div>
+      </div>
+
+      <div class="how-step">
+        <div class="number">2</div>
+        <div>
+          <strong id="step2Title">Hang</strong>
+          <p id="step2Text">
+            Grab the bar and hang as long as possible. Staff records your official time.
+          </p>
+        </div>
+      </div>
+
+      <div class="how-step">
+        <div class="number">3</div>
+        <div>
+          <strong id="step3Title">Join the Leaderboard</strong>
+          <p id="step3Text">
+            Your verified time is added to the leaderboard.
+          </p>
+        </div>
+      </div>
+
+      <div class="how-step">
+        <div class="number">4</div>
+        <div>
+          <strong id="step4Title">Come Back</strong>
+          <p id="step4Text">
+            The challenge runs for 7 days. The person with the longest verified dead hang at the end of Day 7 wins €700.
+          </p>
+        </div>
+      </div>
+
+      <p class="leaderboard-note" id="returnText">
+        Feel free to check the leaderboard anytime, see where you stand, and come back to try again.
+      </p>
+
+    </div>
+
+
+    <!-- LEADERBOARD -->
+    <div class="section">
+
+      <div class="section-title" id="leaderboardTitle">
+        Top 20 Leaderboard
+      </div>
+
+      <div class="leaderboard-box">
+
+        <div class="leaderboard-header">
+          <div>#</div>
+          <div>NAME</div>
+          <div style="text-align:right;">TIME</div>
+        </div>
+
+        <div id="leaderboard">
+          <div class="loading">Loading leaderboard...</div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- REGISTRATION PAGE -->
+  <div id="registrationPage" class="page">
+
+    <a class="back" onclick="showPage('home')">
+      ← <span id="backText">Back</span>
+    </a>
+
+    <div class="section-title" id="registerTitle">
+      Join The Challenge
+    </div>
+
+    <form id="registrationForm">
+
+      <div class="form-group">
+        <label id="nameLabel">Your Name</label>
+
+        <input
+          type="text"
+          id="name"
+          placeholder="Enter your name"
+          required
+        >
+      </div>
+
+
+      <div class="form-group">
+
+        <label id="contactLabel">
+          Contact Method
+        </label>
+
+        <label class="checkbox-row">
+          <input
+            type="checkbox"
+            name="contactMethod"
+            value="Email"
+            onchange="updateContactPlaceholder()"
+          >
+          Email
+        </label>
+
+        <label class="checkbox-row">
+          <input
+            type="checkbox"
+            name="contactMethod"
+            value="Phone"
+            onchange="updateContactPlaceholder()"
+          >
+          Phone
+        </label>
+
+        <label class="checkbox-row">
+          <input
+            type="checkbox"
+            name="contactMethod"
+            value="Instagram"
+            onchange="updateContactPlaceholder()"
+          >
+          Instagram
+        </label>
+
+        <label class="checkbox-row">
+          <input
+            type="checkbox"
+            name="contactMethod"
+            value="Snapchat"
+            onchange="updateContactPlaceholder()"
+          >
+          Snapchat
+        </label>
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label id="detailsLabel">
+          Contact Details
+        </label>
+
+        <input
+          type="text"
+          id="contactDetails"
+          placeholder="Your contact details"
+        >
+
+      </div>
+
+
+      <label class="checkbox-row">
+        <input
+          type="checkbox"
+          id="notifyOvertake"
+        >
+
+        <span id="notifyText">
+          Notify me if someone beats my leaderboard position.
+        </span>
+      </label>
+
+
+      <div id="formError" class="error"></div>
+
+      <br>
+
+      <button class="button" type="submit" id="submitButton">
+        SUBMIT REGISTRATION →
+      </button>
+
+    </form>
+
+  </div>
+
+
+  <!-- SUCCESS PAGE -->
+  <div id="successPage" class="page">
+
+    <div class="success">
+
+      <h2 id="successTitle">
+        YOU'RE IN.
+      </h2>
+
+      <p id="successText">
+        Your registration has been received.<br><br>
+        Pay your €10 entry fee and speak to staff before your official attempt.
+      </p>
+
+      <a class="button" onclick="showPage('home')" id="leaderboardButton">
+        CHECK LEADERBOARD →
+      </a>
+
+    </div>
+
+  </div>
+
+
+  <div class="footer">
+    THE DEAD HANG CHALLENGE<br>
+    7 DAYS · €10 ENTRY · €700 PRIZE
+  </div>
+
 </div>
 
-<div class="card prize">
-<div class="label">Today's Prize</div>
-<div class="prize-amount">€100</div>
-<div class="prize-sub">Highest official time at the end of today wins.</div>
-</div>
-
-<div class="card entry">
-<div class="label">Entry Fee</div>
-<div class="entry-price">€10</div>
-<div class="entry-note">One official dead hang attempt.</div>
-</div>
-
-<div class="card high-score">
-<div class="label">Current High Score</div>
-<div class="score">1:47</div>
-<div class="score-name">Daniel</div>
-</div>
-
-<div class="cta-wrap">
-
-<a href="#registration" class="cta">
-JOIN THE €10 CHALLENGE →
-</a>
-
-<div class="cta-small">
-Register first. Your official time is recorded by our staff.
-</div>
-
-</div>
-
-<div class="leaderboard-title">
-Today's Leaderboard
-</div>
-
-<div class="player">
-<div class="player-left">
-<div class="rank">🥇</div>
-<div class="player-name">Daniel</div>
-</div>
-<div class="player-time">1:47</div>
-</div>
-
-<div class="player">
-<div class="player-left">
-<div class="rank">🥈</div>
-<div class="player-name">Marcus</div>
-</div>
-<div class="player-time">1:32</div>
-</div>
-
-<div class="player">
-<div class="player-left">
-<div class="rank">🥉</div>
-<div class="player-name">Jason</div>
-</div>
-<div class="player-time">1:21</div>
-</div>
-
-<div class="footer">
-Official time is recorded by challenge staff.<br>
-Winner is contacted using the details provided during registration.
-</div>
-
-</section>
-
-
-<!-- REGISTRATION -->
-<section id="registration" class="page">
-
-<div class="card">
-
-<h2 class="form-title">You're stepping up.</h2>
-
-<div class="form-subtitle">
-Register for today's Dead Hang Challenge.
-Your official time will be recorded by challenge staff after your attempt.
-</div>
-
-<form id="registrationForm">
-
-<div class="field">
-
-<label for="name">YOUR NAME</label>
-
-<input
-id="name"
-type="text"
-placeholder="Enter your name"
-required
->
-
-</div>
-
-
-<div class="field">
-
-<label>HOW SHOULD WE CONTACT YOU?</label>
-
-<div class="contact-options">
-
-<label class="contact-option">
-<input type="checkbox" name="method" value="Phone">
-Phone
-</label>
-
-<label class="contact-option">
-<input type="checkbox" name="method" value="Email">
-Email
-</label>
-
-<label class="contact-option">
-<input type="checkbox" name="method" value="Instagram">
-Instagram
-</label>
-
-<label class="contact-option">
-<input type="checkbox" name="method" value="Snapchat">
-Snapchat
-</label>
-
-</div>
-
-</div>
-
-
-<div class="field">
-
-<label for="contact">
-CONTACT DETAILS
-</label>
-
-<input
-id="contact"
-type="text"
-placeholder="Phone, email or @username"
-required
->
-
-</div>
-
-<div id="message" class="message"></div>
-
-<div class="form-buttons">
-
-<button
-type="button"
-class="secondary"
-onclick="goHome()"
->
-BACK
-</button>
-
-<button
-type="submit"
-class="submit"
-id="submit"
->
-REGISTER
-</button>
-
-</div>
-
-</form>
-
-</div>
-
-<div class="footer">
-Registration information is used to contact the winner.
-</div>
-
-</section>
-
-
-<!-- SUCCESS -->
-<section id="success" class="page">
-
-<div class="card success-card">
-
-<div class="success-icon">✓</div>
-
-<h2 class="success-title">
-YOU'RE IN.
-</h2>
-
-<div class="success-text">
-Your registration has been received.
-<br><br>
-Find the Dead Hang Challenge staff member
-and get ready for your official attempt.
-</div>
-
-<button
-class="back-home"
-onclick="goHome()"
->
-BACK TO LEADERBOARD
-</button>
-
-</div>
-
-</section>
-
-</div>
-
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
 
-const SUPABASE_URL =
-"https://krxigmwxntdwqikumabn.supabase.co";
+  /* =========================
+     SUPABASE
+  ========================= */
 
-const SUPABASE_KEY =
-"sb_publishable_rAj3Me-MtVgT7MPT7itNzw_2l1jwcaY";
+  const SUPABASE_URL =
+    "https://krxigmwxntdwqikumabn.supabase.co";
 
-const db =
-window.supabase.createClient(
-SUPABASE_URL,
-SUPABASE_KEY
-);
+  const SUPABASE_KEY =
+    "sb_publishable_rAj3Me-MtVgT7MPT7itNzw_2l1jwcaY";
 
 
-function showPage(id){
+  /* =========================
+     LANGUAGE
+  ========================= */
 
-document.querySelectorAll(".page").forEach(function(page){
-page.classList.remove("active");
-});
+  let currentLanguage = "en";
 
-document.getElementById(id).classList.add("active");
 
-window.scrollTo(0,0);
+  const translations = {
 
-}
+    en: {
+      heroTitle: "HOW LONG<br>CAN YOU HANG?",
+      heroText: "One bar. One challenge.<br>Hang as long as you can.",
 
+      prizeLabel: "End of Day 7 Prize",
+      prizeSub: "Longest verified dead hang wins.",
 
-function goHome(){
+      entryText: "Entry Fee",
 
-window.location.hash = "";
+      joinButton: "JOIN THE €10 CHALLENGE →",
 
-showPage("home");
+      howTitle: "How It Works",
 
-}
+      step1Title: "Pay €10",
+      step1Text: "Pay the €10 entry fee to enter the challenge.",
 
+      step2Title: "Hang",
+      step2Text: "Grab the bar and hang as long as possible. Staff records your official time.",
 
-function showRegistration(){
+      step3Title: "Join the Leaderboard",
+      step3Text: "Your verified time is added to the leaderboard.",
 
-window.location.hash = "registration";
+      step4Title: "Come Back",
+      step4Text: "The challenge runs for 7 days. The person with the longest verified dead hang at the end of Day 7 wins €700.",
 
-showPage("registration");
+      returnText: "Feel free to check the leaderboard anytime, see where you stand, and come back to try again.",
 
-}
+      leaderboardTitle: "Top 20 Leaderboard",
 
+      backText: "Back",
+      registerTitle: "Join The Challenge",
+      nameLabel: "Your Name",
+      contactLabel: "Contact Method",
+      detailsLabel: "Contact Details",
 
-function showSuccess(){
+      notifyText: "Notify me if someone beats my leaderboard position.",
 
-window.location.hash = "success";
+      submitButton: "SUBMIT REGISTRATION →",
 
-showPage("success");
+      successTitle: "YOU'RE IN.",
+      successText: "Your registration has been received.<br><br>Pay your €10 entry fee and speak to staff before your official attempt.",
 
-}
+      leaderboardButton: "CHECK LEADERBOARD →"
+    },
 
 
-function loadPage(){
+    de: {
+      heroTitle: "WIE LANGE<br>KANNST DU HÄNGEN?",
+      heroText: "Eine Stange. Eine Herausforderung.<br>Häng so lange du kannst.",
 
-const hash = window.location.hash;
+      prizeLabel: "Preis am Ende von Tag 7",
+      prizeSub: "Die längste verifizierte Zeit gewinnt.",
 
-if(hash === "#registration"){
-showPage("registration");
-}
+      entryText: "Teilnahmegebühr",
 
-else if(hash === "#success"){
-showPage("success");
-}
+      joinButton: "€10 CHALLENGE MITMACHEN →",
 
-else{
-showPage("home");
-}
+      howTitle: "SO FUNKTIONIERT ES",
 
-}
+      step1Title: "€10 bezahlen",
+      step1Text: "Bezahle die Teilnahmegebühr von €10.",
 
+      step2Title: "Hängen",
+      step2Text: "Greife die Stange und hänge so lange wie möglich. Das Personal erfasst deine offizielle Zeit.",
 
-window.addEventListener("hashchange", loadPage);
+      step3Title: "Auf die Rangliste",
+      step3Text: "Deine verifizierte Zeit wird zur Rangliste hinzugefügt.",
 
-loadPage();
+      step4Title: "Komm wieder",
+      step4Text: "Die Challenge läuft 7 Tage. Die Person mit der längsten verifizierten Dead-Hang-Zeit am Ende von Tag 7 gewinnt €700.",
 
+      returnText: "Schau jederzeit auf der Rangliste vorbei, sieh, wo du stehst, und komm wieder, um es erneut zu versuchen.",
 
-document
-.getElementById("registrationForm")
-.addEventListener("submit", async function(e){
+      leaderboardTitle: "Top 20 Rangliste",
 
-e.preventDefault();
+      backText: "Zurück",
+      registerTitle: "Challenge Mitmachen",
+      nameLabel: "Dein Name",
+      contactLabel: "Kontaktmethode",
+      detailsLabel: "Kontaktdaten",
 
-const name =
-document.getElementById("name").value.trim();
+      notifyText: "Benachrichtige mich, wenn jemand meine Position in der Rangliste überholt.",
 
-const contact =
-document.getElementById("contact").value.trim();
+      submitButton: "REGISTRIERUNG ABSENDEN →",
 
-const methods =
-Array.from(
-document.querySelectorAll(
-'input[name="method"]:checked'
-)
-).map(function(item){
-return item.value;
-});
+      successTitle: "DU BIST DABEI.",
+      successText: "Deine Registrierung wurde erhalten.<br><br>Bezahle deine €10 Teilnahmegebühr und sprich vor deinem offiziellen Versuch mit dem Personal.",
 
-const message =
-document.getElementById("message");
+      leaderboardButton: "RANGLISTE ANSEHEN →"
+    }
 
-const submit =
-document.getElementById("submit");
+  };
 
 
-if(!name){
+  function setLanguage(language) {
 
-message.textContent =
-"Please enter your name.";
+    currentLanguage = language;
 
-message.className =
-"message error";
+    const t = translations[language];
 
-return;
+    document.getElementById("heroTitle").innerHTML = t.heroTitle;
+    document.getElementById("heroText").innerHTML = t.heroText;
 
-}
+    document.getElementById("prizeLabel").textContent = t.prizeLabel;
+    document.getElementById("prizeSub").textContent = t.prizeSub;
 
+    document.getElementById("entryText").textContent = t.entryText;
 
-if(methods.length === 0){
+    document.getElementById("joinButton").textContent = t.joinButton;
 
-message.textContent =
-"Please choose at least one contact method.";
+    document.getElementById("howTitle").textContent = t.howTitle;
 
-message.className =
-"message error";
+    document.getElementById("step1Title").textContent = t.step1Title;
+    document.getElementById("step1Text").textContent = t.step1Text;
 
-return;
+    document.getElementById("step2Title").textContent = t.step2Title;
+    document.getElementById("step2Text").textContent = t.step2Text;
 
-}
+    document.getElementById("step3Title").textContent = t.step3Title;
+    document.getElementById("step3Text").textContent = t.step3Text;
 
+    document.getElementById("step4Title").textContent = t.step4Title;
+    document.getElementById("step4Text").textContent = t.step4Text;
 
-if(!contact){
+    document.getElementById("returnText").textContent = t.returnText;
 
-message.textContent =
-"Please enter your contact details.";
+    document.getElementById("leaderboardTitle").textContent =
+      t.leaderboardTitle;
 
-message.className =
-"message error";
+    document.getElementById("backText").textContent = t.backText;
+    document.getElementById("registerTitle").textContent = t.registerTitle;
 
-return;
+    document.getElementById("nameLabel").textContent = t.nameLabel;
+    document.getElementById("contactLabel").textContent = t.contactLabel;
+    document.getElementById("detailsLabel").textContent = t.detailsLabel;
 
-}
+    document.getElementById("notifyText").textContent = t.notifyText;
 
+    document.getElementById("submitButton").textContent =
+      t.submitButton;
 
-submit.disabled = true;
+    document.getElementById("successTitle").textContent =
+      t.successTitle;
 
-submit.textContent =
-"REGISTERING...";
+    document.getElementById("successText").innerHTML =
+      t.successText;
 
+    document.getElementById("leaderboardButton").textContent =
+      t.leaderboardButton;
 
-const result =
-await db
-.from("players")
-.insert({
+    document.getElementById("enBtn").classList.toggle(
+      "active",
+      language === "en"
+    );
 
-name:name,
+    document.getElementById("deBtn").classList.toggle(
+      "active",
+      language === "de"
+    );
 
-contact_method:
-methods.join(", "),
+    localStorage.setItem("deadHangLanguage", language);
+  }
 
-contact_details:
-contact,
 
-paid:false
+  /* =========================
+     PAGE NAVIGATION
+  ========================= */
 
-});
+  function showPage(page) {
 
+    document.getElementById("homePage").classList.remove("active");
+    document.getElementById("registrationPage").classList.remove("active");
+    document.getElementById("successPage").classList.remove("active");
 
-if(result.error){
+    if (page === "home") {
+      document.getElementById("homePage").classList.add("active");
+      loadLeaderboard();
+    }
 
-console.error(result.error);
+    if (page === "registration") {
+      document.getElementById("registrationPage").classList.add("active");
+    }
 
-message.textContent =
-"Registration failed. Please try again.";
+    if (page === "success") {
+      document.getElementById("successPage").classList.add("active");
+    }
 
-message.className =
-"message error";
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  }
 
-submit.disabled = false;
 
-submit.textContent =
-"REGISTER";
+  /* =========================
+     FORMAT TIME
+  ========================= */
 
-return;
+  function formatTime(seconds) {
 
-}
+    if (!seconds && seconds !== 0) {
+      return "--";
+    }
 
+    seconds = Number(seconds);
 
-document
-.getElementById("registrationForm")
-.reset();
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
 
-submit.disabled = false;
+    return (
+      minutes +
+      ":" +
+      String(remainingSeconds).padStart(2, "0")
+    );
+  }
 
-submit.textContent =
-"REGISTER";
 
-showSuccess();
+  /* =========================
+     LEADERBOARD
+  ========================= */
 
-});
+  async function loadLeaderboard() {
+
+    const leaderboard =
+      document.getElementById("leaderboard");
+
+    leaderboard.innerHTML =
+      '<div class="loading">Loading leaderboard...</div>';
+
+    try {
+
+      const response = await fetch(
+        SUPABASE_URL +
+        "/rest/v1/players?select=name,official_time_seconds&official_time_seconds=not.is.null&order=official_time_seconds.desc&limit=20",
+        {
+          headers: {
+            apikey: SUPABASE_KEY,
+            Authorization: "Bearer " + SUPABASE_KEY
+          }
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Leaderboard request failed");
+      }
+
+      const players = await response.json();
+
+      if (!players.length) {
+
+        leaderboard.innerHTML =
+          '<div class="loading">No official scores yet.</div>';
+
+        return;
+      }
+
+      leaderboard.innerHTML = "";
+
+      players.forEach((player, index) => {
+
+        const row = document.createElement("div");
+
+        row.className = "player";
+
+        row.innerHTML = `
+          <div class="rank">${index + 1}</div>
+          <div>${escapeHtml(player.name)}</div>
+          <div class="time">
+            ${formatTime(player.official_time_seconds)}
+          </div>
+        `;
+
+        leaderboard.appendChild(row);
+
+      });
+
+    } catch (error) {
+
+      console.error(error);
+
+      leaderboard.innerHTML =
+        '<div class="loading">Leaderboard temporarily unavailable.</div>';
+    }
+  }
+
+
+  function escapeHtml(text) {
+
+    const div = document.createElement("div");
+
+    div.textContent = text;
+
+    return div.innerHTML;
+  }
+
+
+  /* =========================
+     CONTACT PLACEHOLDER
+  ========================= */
+
+  function updateContactPlaceholder() {
+
+    const selected =
+      Array.from(
+        document.querySelectorAll(
+          'input[name="contactMethod"]:checked'
+        )
+      ).map(input => input.value);
+
+    const field =
+      document.getElementById("contactDetails");
+
+    if (selected.includes("Email")) {
+
+      field.placeholder = "Your email address";
+
+    } else if (selected.includes("Phone")) {
+
+      field.placeholder = "Your phone number";
+
+    } else if (selected.includes("Instagram")) {
+
+      field.placeholder = "Your Instagram username";
+
+    } else if (selected.includes("Snapchat")) {
+
+      field.placeholder = "Your Snapchat username";
+
+    } else {
+
+      field.placeholder = "Your contact details";
+    }
+  }
+
+
+  /* =========================
+     REGISTRATION
+  ========================= */
+
+  document
+    .getElementById("registrationForm")
+    .addEventListener("submit", async function(event) {
+
+      event.preventDefault();
+
+      const errorBox =
+        document.getElementById("formError");
+
+      errorBox.textContent = "";
+
+      const name =
+        document.getElementById("name").value.trim();
+
+      const contactDetails =
+        document.getElementById("contactDetails").value.trim();
+
+      const notifyOvertake =
+        document.getElementById("notifyOvertake").checked;
+
+      const selectedMethods =
+        Array.from(
+          document.querySelectorAll(
+            'input[name="contactMethod"]:checked'
+          )
+        ).map(input => input.value);
+
+      if (!name) {
+
+        errorBox.textContent =
+          currentLanguage === "de"
+            ? "Bitte gib deinen Namen ein."
+            : "Please enter your name.";
+
+        return;
+      }
+
+      if (!selectedMethods.length) {
+
+        errorBox.textContent =
+          currentLanguage === "de"
+            ? "Bitte wähle mindestens eine Kontaktmethode."
+            : "Please select at least one contact method.";
+
+        return;
+      }
+
+      if (!contactDetails) {
+
+        errorBox.textContent =
+          currentLanguage === "de"
+            ? "Bitte gib deine Kontaktdaten ein."
+            : "Please enter your contact details.";
+
+        return;
+      }
+
+      if (
+        notifyOvertake &&
+        !selectedMethods.includes("Email")
+      ) {
+
+        errorBox.textContent =
+          currentLanguage === "de"
+            ? "Für Benachrichtigungen musst du deine E-Mail auswählen."
+            : "You need to select Email to receive notifications.";
+
+        return;
+      }
+
+
+      const submitButton =
+        document.getElementById("submitButton");
+
+      submitButton.disabled = true;
+
+      submitButton.textContent =
+        currentLanguage === "de"
+          ? "WIRD GESPEICHERT..."
+          : "SUBMITTING...";
+
+
+      try {
+
+        const response = await fetch(
+          SUPABASE_URL + "/rest/v1/players",
+          {
+            method: "POST",
+
+            headers: {
+              apikey: SUPABASE_KEY,
+              Authorization: "Bearer " + SUPABASE_KEY,
+              "Content-Type": "application/json",
+              Prefer: "return=minimal"
+            },
+
+            body: JSON.stringify({
+
+              name: name,
+
+              contact_method:
+                selectedMethods.join(", "),
+
+              contact_details:
+                contactDetails,
+
+              paid: false,
+
+              notify_overtake:
+                notifyOvertake
+
+            })
+          }
+        );
+
+
+        if (!response.ok) {
+
+          const errorText =
+            await response.text();
+
+          console.error(errorText);
+
+          throw new Error(
+            "Registration failed"
+          );
+        }
+
+
+        document
+          .getElementById("registrationForm")
+          .reset();
+
+        showPage("success");
+
+
+      } catch (error) {
+
+        console.error(error);
+
+        errorBox.textContent =
+          currentLanguage === "de"
+            ? "Etwas ist schiefgelaufen. Bitte versuche es erneut."
+            : "Something went wrong. Please try again.";
+
+      } finally {
+
+        submitButton.disabled = false;
+
+        submitButton.textContent =
+          translations[currentLanguage].submitButton;
+      }
+
+    });
+
+
+  /* =========================
+     STARTUP
+  ========================= */
+
+  const savedLanguage =
+    localStorage.getItem("deadHangLanguage");
+
+  if (savedLanguage === "de") {
+    setLanguage("de");
+  } else {
+    setLanguage("en");
+  }
+
+  loadLeaderboard();
+
+  setInterval(
+    loadLeaderboard,
+    30000
+  );
 
 </script>
 
