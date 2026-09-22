@@ -1,11 +1,19 @@
 <!doctype html>
 <html>
+
 <head>
+
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<meta
+  name="viewport"
+  content="width=device-width,initial-scale=1"
+>
+
 <title>Dead Hang Staff</title>
 
 <style>
+
 body{
   font-family:Arial;
   background:#050505;
@@ -22,7 +30,8 @@ input,button{
   background:#111;
   color:#fff;
   width:100%;
-  margin:6px 0
+  margin:6px 0;
+  box-sizing:border-box
 }
 
 button{
@@ -39,23 +48,70 @@ button{
   border-radius:10px
 }
 
+.panel{
+  padding:18px;
+  border:1px solid #333;
+  border-radius:12px;
+  margin:20px 0
+}
+
+.panel h2{
+  margin-top:0
+}
+
+.checkbox{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin:10px 0
+}
+
+.checkbox input{
+  width:auto
+}
+
+.status{
+  padding:12px;
+  border-radius:8px;
+  margin:10px 0;
+  background:#111
+}
+
 .error{
   color:#ff6b6b;
   margin-top:15px
 }
+
+.success{
+  color:#6bff8a;
+  margin-top:15px
+}
+
+small{
+  color:#aaa
+}
+
 </style>
+
 </head>
+
 
 <body>
 
-<h1>THE DEAD HANG — STAFF</h1>
+<h1>
+THE DEAD HANG — STAFF
+</h1>
 
 <p>
-Use this page to record an official verified time.
+Use this page to control the competition and
+record official verified times.
 Keep this page private.
 </p>
 
-<label>Admin secret</label>
+
+<label>
+Admin secret
+</label>
 
 <input
   id="secret"
@@ -63,23 +119,165 @@ Keep this page private.
   placeholder="Enter admin secret"
 >
 
+
 <button id="load">
-  LOAD UNVERIFIED PLAYERS
+LOAD UNVERIFIED PLAYERS
 </button>
 
-<div id="list"></div>
+
+<!-- ========================================= -->
+<!-- CONTROL PANEL -->
+<!-- ========================================= -->
+
+<div class="panel">
+
+<h2>
+CONTROL PANEL
+</h2>
+
+<p>
+Control what visitors see on the public website.
+</p>
+
+
+<label>
+Competition ends
+</label>
+
+<input
+  id="competitionEnd"
+  type="datetime-local"
+>
+
+
+<label>
+Location name
+</label>
+
+<input
+  id="locationName"
+  type="text"
+  placeholder="Alexanderplatz"
+>
+
+
+<label>
+Address
+</label>
+
+<input
+  id="locationAddress"
+  type="text"
+  placeholder="Alexanderplatz, Berlin"
+>
+
+
+<label>
+Start time
+</label>
+
+<input
+  id="startTime"
+  type="time"
+>
+
+
+<label>
+End time
+</label>
+
+<input
+  id="endTime"
+  type="time"
+>
+
+
+<label class="checkbox">
+
+<input
+  id="liveStatus"
+  type="checkbox"
+>
+
+<span>
+🟢 WE ARE LIVE TODAY
+</span>
+
+</label>
+
+
+<button id="loadSettings">
+LOAD CURRENT SETTINGS
+</button>
+
+
+<button id="saveSettings">
+SAVE SETTINGS
+</button>
+
+
+<div
+  id="settingsMessage"
+>
+</div>
+
+</div>
+
+
+<!-- ========================================= -->
+<!-- PLAYERS -->
+<!-- ========================================= -->
+
+<h2>
+UNVERIFIED PLAYERS
+</h2>
+
+<div id="list">
+  <p>
+    Enter your admin secret and load players.
+  </p>
+</div>
+
 
 <script>
+
 
 const FUNCTION_URL =
   "https://krxigmwxntdwqikumabn.supabase.co/functions/v1/record-score";
 
+
 const SUPABASE_KEY =
   "sb_publishable_rAj3Me-MtVgT7MPT7itNzw_2l1jwcaY";
 
-const $ = x =>
-  document.querySelector(x);
 
+const $ =
+  x => document.querySelector(x);
+
+
+/* ========================================= */
+/* ESCAPE */
+/* ========================================= */
+
+function esc(value){
+
+  return String(value || "")
+    .replace(
+      /[&<>"']/g,
+      c => ({
+        "&":"&amp;",
+        "<":"&lt;",
+        ">":"&gt;",
+        '"':"&quot;",
+        "'":"&#039;"
+      }[c])
+    );
+
+}
+
+
+/* ========================================= */
+/* LOAD PLAYERS */
+/* ========================================= */
 
 async function load(){
 
@@ -87,12 +285,18 @@ async function load(){
     $("#secret").value.trim();
 
   if(!secret){
-    alert("Enter the admin secret first.");
+
+    alert(
+      "Enter the admin secret first."
+    );
+
     return;
   }
 
+
   $("#list").innerHTML =
     "<p>Loading...</p>";
+
 
   const response =
     await fetch(
@@ -101,71 +305,97 @@ async function load(){
         method:"GET",
 
         headers:{
-          "apikey":SUPABASE_KEY,
-          "x-admin-secret":secret
+          "apikey":
+            SUPABASE_KEY,
+
+          "x-admin-secret":
+            secret
         }
       }
     );
 
+
   const result =
     await response.json();
+
 
   if(!response.ok){
 
     $("#list").innerHTML =
       `<p class="error">
-        ${esc(result.error || "Failed to load players")}
+        ${esc(
+          result.error ||
+          "Failed to load players"
+        )}
       </p>`;
 
     return;
   }
 
+
   const data =
     result.players || [];
 
+
   $("#list").innerHTML =
-    data.map(p => `
+    data.map(
+      p => `
 
-      <div class="player">
+        <div class="player">
 
-        <b>${esc(p.name)}</b>
+          <b>
+            ${esc(p.name)}
+          </b>
 
-        <br>
+          <br>
 
-        <small>
-          ${esc(p.contact_method || "")}
-          ·
-          ${esc(p.contact_details || "")}
-        </small>
+          <small>
+            ${esc(
+              p.contact_method || ""
+            )}
 
-        <input
-          id="t-${p.id}"
-          type="number"
-          min="1"
-          placeholder="Official time in seconds"
-        >
+            ·
 
-        <button
-          onclick="score('${p.id}')"
-        >
-          SAVE OFFICIAL TIME
-        </button>
+            ${esc(
+              p.contact_details || ""
+            )}
+          </small>
 
-      </div>
+          <input
+            id="t-${p.id}"
+            type="number"
+            min="1"
+            placeholder="Official time in seconds"
+          >
 
-    `).join("")
+          <button
+            onclick="score('${p.id}')"
+          >
+            SAVE OFFICIAL TIME
+          </button>
+
+        </div>
+
+      `
+    ).join("")
 
     ||
 
     "<p>No unverified players.</p>";
+
 }
 
+
+/* ========================================= */
+/* SAVE SCORE */
+/* ========================================= */
 
 window.score =
 async function(id){
 
   const secret =
     $("#secret").value.trim();
+
 
   const seconds =
     Number(
@@ -174,18 +404,29 @@ async function(id){
       ).value
     );
 
+
   if(!secret){
-    alert("Enter the admin secret.");
+
+    alert(
+      "Enter the admin secret."
+    );
+
     return;
   }
+
 
   if(
     !Number.isInteger(seconds) ||
     seconds <= 0
   ){
-    alert("Enter time in seconds.");
+
+    alert(
+      "Enter time in seconds."
+    );
+
     return;
   }
+
 
   const response =
     await fetch(
@@ -205,15 +446,21 @@ async function(id){
         },
 
         body:JSON.stringify({
-          player_id:id,
+
+          player_id:
+            id,
+
           official_time_seconds:
             seconds
+
         })
       }
     );
 
+
   const result =
     await response.json();
+
 
   if(!response.ok){
 
@@ -225,32 +472,277 @@ async function(id){
     return;
   }
 
+
   alert(
-    `Saved! New rank: #${result.newRank}`
+    `Saved! New rank: #${
+      result.player.rank
+    }`
   );
 
+
   load();
+
 };
 
 
-function esc(value){
+/* ========================================= */
+/* LOAD SETTINGS */
+/* ========================================= */
 
-  return String(value || "")
-    .replace(
-      /[&<>"']/g,
-      c => ({
-        "&":"&amp;",
-        "<":"&lt;",
-        ">":"&gt;",
-        '"':"&quot;",
-        "'":"&#039;"
-      }[c])
+async function loadSettings(){
+
+  const secret =
+    $("#secret").value.trim();
+
+
+  if(!secret){
+
+    alert(
+      "Enter the admin secret first."
     );
+
+    return;
+  }
+
+
+  $("#settingsMessage").innerHTML =
+    "<small>Loading settings...</small>";
+
+
+  const response =
+    await fetch(
+      FUNCTION_URL +
+      "?mode=settings",
+      {
+        method:"GET",
+
+        headers:{
+          "apikey":
+            SUPABASE_KEY,
+
+          "x-admin-secret":
+            secret
+        }
+      }
+    );
+
+
+  const result =
+    await response.json();
+
+
+  if(!response.ok){
+
+    $("#settingsMessage").innerHTML =
+      `<div class="error">
+        ${esc(
+          result.error ||
+          "Failed to load settings"
+        )}
+      </div>`;
+
+    return;
+  }
+
+
+  const s =
+    result.settings;
+
+
+  if(!s){
+
+    $("#settingsMessage").innerHTML =
+      `<div class="error">
+        No settings found.
+      </div>`;
+
+    return;
+  }
+
+
+  if(s.competition_end_at){
+
+    const date =
+      new Date(
+        s.competition_end_at
+      );
+
+    const local =
+      new Date(
+        date.getTime() -
+        date.getTimezoneOffset() * 60000
+      )
+      .toISOString()
+      .slice(0,16);
+
+    $("#competitionEnd").value =
+      local;
+  }
+
+
+  $("#locationName").value =
+    s.location_name || "";
+
+
+  $("#locationAddress").value =
+    s.location_address || "";
+
+
+  $("#startTime").value =
+    s.start_time || "";
+
+
+  $("#endTime").value =
+    s.end_time || "";
+
+
+  $("#liveStatus").checked =
+    Boolean(
+      s.live_status
+    );
+
+
+  $("#settingsMessage").innerHTML =
+    `<div class="success">
+      Settings loaded.
+    </div>`;
+
 }
 
 
+/* ========================================= */
+/* SAVE SETTINGS */
+/* ========================================= */
+
+async function saveSettings(){
+
+  const secret =
+    $("#secret").value.trim();
+
+
+  if(!secret){
+
+    alert(
+      "Enter the admin secret first."
+    );
+
+    return;
+  }
+
+
+  const competitionValue =
+    $("#competitionEnd").value;
+
+
+  if(!competitionValue){
+
+    alert(
+      "Enter the competition end time."
+    );
+
+    return;
+  }
+
+
+  const competitionEnd =
+    new Date(
+      competitionValue
+    ).toISOString();
+
+
+  const body = {
+
+    action:
+      "settings",
+
+    competition_end_at:
+      competitionEnd,
+
+    location_name:
+      $("#locationName").value.trim(),
+
+    location_address:
+      $("#locationAddress").value.trim(),
+
+    start_time:
+      $("#startTime").value,
+
+    end_time:
+      $("#endTime").value,
+
+    live_status:
+      $("#liveStatus").checked
+  };
+
+
+  $("#settingsMessage").innerHTML =
+    "<small>Saving...</small>";
+
+
+  const response =
+    await fetch(
+      FUNCTION_URL,
+      {
+        method:"POST",
+
+        headers:{
+          "Content-Type":
+            "application/json",
+
+          "apikey":
+            SUPABASE_KEY,
+
+          "x-admin-secret":
+            secret
+        },
+
+        body:
+          JSON.stringify(body)
+      }
+    );
+
+
+  const result =
+    await response.json();
+
+
+  if(!response.ok){
+
+    $("#settingsMessage").innerHTML =
+      `<div class="error">
+        ${esc(
+          result.error ||
+          "Failed to save settings"
+        )}
+      </div>`;
+
+    return;
+  }
+
+
+  $("#settingsMessage").innerHTML =
+    `<div class="success">
+      ✓ Settings saved successfully.
+    </div>`;
+
+}
+
+
+/* ========================================= */
+/* BUTTONS */
+/* ========================================= */
+
 $("#load").onclick =
   load;
+
+
+$("#loadSettings").onclick =
+  loadSettings;
+
+
+$("#saveSettings").onclick =
+  saveSettings;
+
 
 </script>
 
