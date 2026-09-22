@@ -38,6 +38,11 @@ button{
   margin:8px 0;
   border-radius:10px
 }
+
+.error{
+  color:#ff6b6b;
+  margin-top:15px
+}
 </style>
 </head>
 
@@ -55,6 +60,7 @@ Keep this page private.
 <input
   id="secret"
   type="password"
+  placeholder="Enter admin secret"
 >
 
 <button id="load">
@@ -63,20 +69,13 @@ Keep this page private.
 
 <div id="list"></div>
 
-<script type="module">
+<script>
 
-import {
-  createClient
-} from "https://esm.sh/@supabase/supabase-js@2";
+const FUNCTION_URL =
+  "https://krxigmwxntdwqikumabn.supabase.co/functions/v1/record-score";
 
-const URL =
-  "https://krxigmwxntdwqikumabn.supabase.co";
-
-const KEY =
+const SUPABASE_KEY =
   "sb_publishable_rAj3Me-MtVgT7MPT7itNzw_2l1jwcaY";
-
-const supabase =
-  createClient(URL, KEY);
 
 const $ = x =>
   document.querySelector(x);
@@ -84,37 +83,53 @@ const $ = x =>
 
 async function load(){
 
-  const {
-    data,
-    error
-  } = await supabase
-    .from("players")
-    .select(
-      "id,name,contact_method,contact_details,official_time_seconds"
-    )
-    .is(
-      "official_time_seconds",
-      null
-    )
-    .order(
-      "created_at",
-      {ascending:true}
-    );
+  const secret =
+    $("#secret").value.trim();
 
-  if(error){
-
-    $("#list").textContent =
-      error.message;
-
+  if(!secret){
+    alert("Enter the admin secret first.");
     return;
   }
 
   $("#list").innerHTML =
-    (data || []).map(p => `
+    "<p>Loading...</p>";
+
+  const response =
+    await fetch(
+      FUNCTION_URL,
+      {
+        method:"GET",
+
+        headers:{
+          "apikey":SUPABASE_KEY,
+          "x-admin-secret":secret
+        }
+      }
+    );
+
+  const result =
+    await response.json();
+
+  if(!response.ok){
+
+    $("#list").innerHTML =
+      `<p class="error">
+        ${esc(result.error || "Failed to load players")}
+      </p>`;
+
+    return;
+  }
+
+  const data =
+    result.players || [];
+
+  $("#list").innerHTML =
+    data.map(p => `
 
       <div class="player">
 
         <b>${esc(p.name)}</b>
+
         <br>
 
         <small>
@@ -125,7 +140,9 @@ async function load(){
 
         <input
           id="t-${p.id}"
-          placeholder="Official time in seconds, e.g. 107"
+          type="number"
+          min="1"
+          placeholder="Official time in seconds"
         >
 
         <button
@@ -147,6 +164,9 @@ async function load(){
 window.score =
 async function(id){
 
+  const secret =
+    $("#secret").value.trim();
+
   const seconds =
     Number(
       document.querySelector(
@@ -154,23 +174,22 @@ async function(id){
       ).value
     );
 
-  if(
-    !Number.isInteger(seconds)
-    ||
-    seconds <= 0
-  ){
-
-    alert(
-      "Enter time in seconds."
-    );
-
+  if(!secret){
+    alert("Enter the admin secret.");
     return;
   }
 
-  const r =
+  if(
+    !Number.isInteger(seconds) ||
+    seconds <= 0
+  ){
+    alert("Enter time in seconds.");
+    return;
+  }
+
+  const response =
     await fetch(
-      URL +
-      "/functions/v1/record-score",
+      FUNCTION_URL,
       {
         method:"POST",
 
@@ -178,8 +197,11 @@ async function(id){
           "Content-Type":
             "application/json",
 
+          "apikey":
+            SUPABASE_KEY,
+
           "x-admin-secret":
-            $("#secret").value
+            secret
         },
 
         body:JSON.stringify({
@@ -190,30 +212,30 @@ async function(id){
       }
     );
 
-  const j =
-    await r.json();
+  const result =
+    await response.json();
 
-  if(!r.ok){
+  if(!response.ok){
 
     alert(
-      j.error ||
-      "Failed"
+      result.error ||
+      "Failed to save score."
     );
 
     return;
   }
 
   alert(
-    `Saved. New rank: #${j.newRank}. Emails sent: ${j.notified}`
+    `Saved! New rank: #${result.newRank}`
   );
 
   load();
 };
 
 
-function esc(s){
+function esc(value){
 
-  return String(s || "")
+  return String(value || "")
     .replace(
       /[&<>"']/g,
       c => ({
