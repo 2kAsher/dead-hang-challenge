@@ -108,6 +108,27 @@
       margin-top: 5px;
     }
 
+    .prize-breakdown {
+      display: grid;
+      gap: 7px;
+      margin-top: 15px;
+    }
+
+    .prize-place {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 9px 12px;
+      background: #151515;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .prize-place span:last-child {
+      font-size: 16px;
+    }
+
     section {
       margin-bottom: 35px;
     }
@@ -306,9 +327,36 @@
       border-top: 1px solid #1d1d1d;
     }
 
+    .leaderboard-row.top-one {
+      background: #181818;
+    }
+
+    .leaderboard-row.top-two {
+      background: #141414;
+    }
+
+    .leaderboard-row.top-three {
+      background: #111;
+    }
+
     .rank {
       color: #777;
       font-weight: 800;
+    }
+
+    .top-one .rank {
+      color: #fff;
+      font-size: 18px;
+    }
+
+    .top-two .rank {
+      color: #ccc;
+      font-size: 17px;
+    }
+
+    .top-three .rank {
+      color: #aaa;
+      font-size: 17px;
     }
 
     .player-name {
@@ -316,6 +364,12 @@
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
+    }
+
+    .top-one .player-name,
+    .top-two .player-name,
+    .top-three .player-name {
+      font-size: 16px;
     }
 
     .time {
@@ -400,21 +454,53 @@
     </h1>
 
     <p data-i18n="heroText">
-      Pay €10, hang for as long as you can, and compete for the €700 prize.
+      Pay €10, hang for as long as you can, and compete for a €700 total prize pool.
     </p>
 
     <div class="prize">
 
       <div class="prize-label" data-i18n="prizeLabel">
-        PRIZE
+        TOTAL PRIZE POOL
       </div>
 
       <div class="prize-amount">
         €700
       </div>
 
-      <div class="subtitle" data-i18n="prizeSub">
-        Winner at the end of Day 7
+      <div class="prize-breakdown">
+
+        <div class="prize-place">
+          <span data-i18n="firstPrize">
+            🥇 1ST PLACE
+          </span>
+
+          <span>€400</span>
+        </div>
+
+        <div class="prize-place">
+          <span data-i18n="secondPrize">
+            🥈 2ND PLACE
+          </span>
+
+          <span>€200</span>
+        </div>
+
+        <div class="prize-place">
+          <span data-i18n="thirdPrize">
+            🥉 3RD PLACE
+          </span>
+
+          <span>€100</span>
+        </div>
+
+      </div>
+
+      <div
+        class="subtitle"
+        data-i18n="prizeSub"
+        style="margin-top: 12px;"
+      >
+        Winners at the end of Day 7
       </div>
 
     </div>
@@ -610,8 +696,7 @@
             >
 
             <span data-i18n="notify">
-              Notify me by email if someone beats my score
-              (you can come back and play again)
+              Notify me by email if someone beats my score (you can come back and play again)
             </span>
 
           </label>
@@ -722,13 +807,22 @@
         "HOW LONG CAN YOU HANG?",
 
       heroText:
-        "Pay €10, hang for as long as you can, and compete for the €700 prize.",
+        "Pay €10, hang for as long as you can, and compete for a €700 total prize pool.",
 
       prizeLabel:
-        "PRIZE",
+        "TOTAL PRIZE POOL",
+
+      firstPrize:
+        "🥇 1ST PLACE",
+
+      secondPrize:
+        "🥈 2ND PLACE",
+
+      thirdPrize:
+        "🥉 3RD PLACE",
 
       prizeSub:
-        "Winner at the end of Day 7",
+        "Winners at the end of Day 7",
 
       howTitle:
         "HOW IT WORKS",
@@ -817,10 +911,19 @@
         "WIE LANGE KANNST DU HÄNGEN?",
 
       heroText:
-        "Bezahle €10, häng so lange du kannst und kämpfe um den €700 Preis.",
+        "Bezahle €10, häng so lange du kannst und kämpfe um einen Gesamtpreis von €700.",
 
       prizeLabel:
-        "PREIS",
+        "GESAMTER PREISTOPF",
+
+      firstPrize:
+        "🥇 1. PLATZ",
+
+      secondPrize:
+        "🥈 2. PLATZ",
+
+      thirdPrize:
+        "🥉 3. PLATZ",
 
       prizeSub:
         "Gewinner am Ende von Tag 7",
@@ -1157,11 +1260,6 @@
       }
 
 
-      /*
-        OVERTAKE NOTIFICATIONS
-        REQUIRE EMAIL
-      */
-
       if (
         notifyOvertake &&
         !selectedContacts.includes("Email")
@@ -1326,6 +1424,19 @@
             "leaderboard-row";
 
 
+          if (index === 0) {
+            row.classList.add("top-one");
+          }
+
+          if (index === 1) {
+            row.classList.add("top-two");
+          }
+
+          if (index === 2) {
+            row.classList.add("top-three");
+          }
+
+
           const rank =
             document.createElement(
               "div"
@@ -1336,8 +1447,15 @@
             "rank";
 
 
-          rank.textContent =
-            index + 1;
+          if (index === 0) {
+            rank.textContent = "🥇";
+          } else if (index === 1) {
+            rank.textContent = "🥈";
+          } else if (index === 2) {
+            rank.textContent = "🥉";
+          } else {
+            rank.textContent = index + 1;
+          }
 
 
           const playerName =
