@@ -376,39 +376,54 @@
 
   <header>
     <div class="logo">DEAD HANG</div>
+
     <div class="subtitle" data-i18n="subtitle">
       THE 7-DAY HANG CHALLENGE
     </div>
 
     <div class="language-switch">
-      <button id="enBtn" class="active" onclick="setLanguage('en')">EN</button>
-      <button id="deBtn" onclick="setLanguage('de')">DE</button>
+      <button id="enBtn" class="active" onclick="setLanguage('en')">
+        EN
+      </button>
+
+      <button id="deBtn" onclick="setLanguage('de')">
+        DE
+      </button>
     </div>
   </header>
 
 
   <div class="hero">
-    <h1 data-i18n="heroTitle">HOW LONG CAN YOU HANG?</h1>
+
+    <h1 data-i18n="heroTitle">
+      HOW LONG CAN YOU HANG?
+    </h1>
 
     <p data-i18n="heroText">
       Pay €10, hang for as long as you can, and compete for the €700 prize.
     </p>
 
     <div class="prize">
+
       <div class="prize-label" data-i18n="prizeLabel">
         PRIZE
       </div>
 
-      <div class="prize-amount">€700</div>
+      <div class="prize-amount">
+        €700
+      </div>
 
       <div class="subtitle" data-i18n="prizeSub">
         Winner at the end of Day 7
       </div>
+
     </div>
+
   </div>
 
 
   <!-- HOW IT WORKS -->
+
   <section>
 
     <div class="section-title" data-i18n="howTitle">
@@ -419,27 +434,34 @@
 
       <div class="step">
         <div class="step-number">1</div>
+
         <div class="step-text" data-i18n="step1">
           Pay €10
         </div>
       </div>
 
+
       <div class="step">
         <div class="step-number">2</div>
+
         <div class="step-text" data-i18n="step2">
           Hang
         </div>
       </div>
 
+
       <div class="step">
         <div class="step-number">3</div>
+
         <div class="step-text" data-i18n="step3">
           Join the leaderboard
         </div>
       </div>
 
+
       <div class="step">
         <div class="step-number">4</div>
+
         <div class="step-text" data-i18n="step4">
           Come back
         </div>
@@ -447,20 +469,22 @@
 
     </div>
 
+
     <p class="info-text" data-i18n="howText">
-      Feel free to check the leaderboard anytime, see where you stand,
-      and come back to try again.
+      Feel free to check the leaderboard anytime, see where you stand, and come back to try again.
     </p>
 
   </section>
 
 
   <!-- ENTER CHALLENGE -->
+
   <section>
 
     <div class="section-title" data-i18n="enterTitle">
       ENTER THE CHALLENGE
     </div>
+
 
     <div class="card">
 
@@ -483,42 +507,81 @@
           Contact method
         </label>
 
+
         <div class="contact-options">
 
           <label class="checkbox-row">
+
             <input
               type="checkbox"
               name="contactMethod"
               value="Phone"
             >
-            <span data-i18n="phone">Phone</span>
+
+            <span data-i18n="phone">
+              Phone
+            </span>
+
           </label>
 
+
           <label class="checkbox-row">
+
+            <input
+              type="checkbox"
+              name="contactMethod"
+              value="WhatsApp"
+            >
+
+            <span data-i18n="whatsapp">
+              WhatsApp
+            </span>
+
+          </label>
+
+
+          <label class="checkbox-row">
+
             <input
               type="checkbox"
               name="contactMethod"
               value="Email"
             >
-            <span data-i18n="email">Email</span>
+
+            <span data-i18n="email">
+              Email
+            </span>
+
           </label>
 
+
           <label class="checkbox-row">
+
             <input
               type="checkbox"
               name="contactMethod"
               value="Instagram"
             >
-            <span>Instagram</span>
+
+            <span>
+              Instagram
+            </span>
+
           </label>
 
+
           <label class="checkbox-row">
+
             <input
               type="checkbox"
               name="contactMethod"
               value="Snapchat"
             >
-            <span>Snapchat</span>
+
+            <span>
+              Snapchat
+            </span>
+
           </label>
 
         </div>
@@ -528,11 +591,12 @@
           Contact details
         </label>
 
+
         <input
           type="text"
           id="contactDetails"
           maxlength="100"
-          placeholder="Phone, email, username..."
+          placeholder="Phone, WhatsApp, email, username..."
         >
 
 
@@ -546,7 +610,8 @@
             >
 
             <span data-i18n="notify">
-              Notify me if someone beats my score
+              Notify me by email if someone beats my score
+              (you can come back and play again)
             </span>
 
           </label>
@@ -563,6 +628,7 @@
           ENTER FOR €10
         </button>
 
+
         <div
           id="registrationMessage"
           class="message"
@@ -576,24 +642,37 @@
 
 
   <!-- LEADERBOARD -->
+
   <section>
 
     <div class="section-title" data-i18n="leaderboardTitle">
       TOP 20 LEADERBOARD
     </div>
 
+
     <div class="leaderboard">
 
       <div class="leaderboard-header">
+
         <div>#</div>
-        <div data-i18n="playerHeader">PLAYER</div>
-        <div data-i18n="timeHeader">TIME</div>
+
+        <div data-i18n="playerHeader">
+          PLAYER
+        </div>
+
+        <div data-i18n="timeHeader">
+          TIME
+        </div>
+
       </div>
 
+
       <div id="leaderboardBody">
+
         <div class="loading" data-i18n="loading">
           Loading...
         </div>
+
       </div>
 
     </div>
@@ -619,6 +698,7 @@
 
   const SUPABASE_KEY =
     "sb_publishable_rAj3Me-MtVgT7MPT7itNzw_2l1jwcaY";
+
 
   const supabaseClient =
     window.supabase.createClient(
@@ -680,6 +760,9 @@
       phone:
         "Phone",
 
+      whatsapp:
+        "WhatsApp",
+
       email:
         "Email",
 
@@ -687,7 +770,7 @@
         "Contact details",
 
       notify:
-        "Notify me if someone beats my score",
+        "Notify me by email if someone beats my score (you can come back and play again)",
 
       submit:
         "ENTER FOR €10",
@@ -772,6 +855,9 @@
       phone:
         "Telefon",
 
+      whatsapp:
+        "WhatsApp",
+
       email:
         "E-Mail",
 
@@ -779,7 +865,7 @@
         "Kontaktdaten",
 
       notify:
-        "Benachrichtige mich, wenn jemand meine Zeit schlägt",
+        "Benachrichtige mich per E-Mail, wenn jemand meine Zeit schlägt (du kannst wiederkommen und erneut spielen)",
 
       submit:
         "FÜR €10 TEILNEHMEN",
@@ -836,9 +922,13 @@
       language
     );
 
-    document.documentElement.lang = language;
+    document.documentElement.lang =
+      language;
 
-    const texts = translations[language];
+
+    const texts =
+      translations[language];
+
 
     document
       .querySelectorAll("[data-i18n]")
@@ -847,8 +937,12 @@
         const key =
           element.getAttribute("data-i18n");
 
+
         if (texts[key]) {
-          element.textContent = texts[key];
+
+          element.textContent =
+            texts[key];
+
         }
 
       });
@@ -859,6 +953,7 @@
         "active",
         language === "en"
       );
+
 
     document.getElementById("deBtn")
       .classList.toggle(
@@ -879,8 +974,12 @@
     const name =
       document.getElementById("name");
 
+
     const contact =
-      document.getElementById("contactDetails");
+      document.getElementById(
+        "contactDetails"
+      );
+
 
     if (currentLanguage === "de") {
 
@@ -888,7 +987,7 @@
         "Deinen Namen eingeben";
 
       contact.placeholder =
-        "Telefon, E-Mail, Benutzername...";
+        "Telefon, WhatsApp, E-Mail, Benutzername...";
 
     } else {
 
@@ -896,7 +995,7 @@
         "Enter your name";
 
       contact.placeholder =
-        "Phone, email, username...";
+        "Phone, WhatsApp, email, username...";
 
     }
 
@@ -929,10 +1028,12 @@
       Array.from(contactCheckboxes)
         .filter(box => box.checked);
 
+
     const contactDetails =
       document.getElementById(
         "contactDetails"
       );
+
 
     if (selected.length > 0) {
 
@@ -1005,7 +1106,8 @@
         type
       ) {
 
-        message.textContent = text;
+        message.textContent =
+          text;
 
         message.className =
           "message show " + type;
@@ -1055,6 +1157,11 @@
       }
 
 
+      /*
+        OVERTAKE NOTIFICATIONS
+        REQUIRE EMAIL
+      */
+
       if (
         notifyOvertake &&
         !selectedContacts.includes("Email")
@@ -1076,7 +1183,9 @@
           "submitButton"
         );
 
-      submitButton.disabled = true;
+
+      submitButton.disabled =
+        true;
 
 
       try {
@@ -1087,7 +1196,8 @@
           .from("players")
           .insert({
 
-            name: name,
+            name:
+              name,
 
             contact_method:
               selectedContacts.join(", "),
@@ -1126,9 +1236,11 @@
 
       }
 
+
       catch (error) {
 
         console.error(error);
+
 
         showMessage(
           translations[currentLanguage]
@@ -1138,9 +1250,11 @@
 
       }
 
+
       finally {
 
-        submitButton.disabled = false;
+        submitButton.disabled =
+          false;
 
       }
 
@@ -1180,7 +1294,10 @@
       }
 
 
-      if (!data || data.length === 0) {
+      if (
+        !data ||
+        data.length === 0
+      ) {
 
         body.innerHTML =
           `<div class="empty">
@@ -1192,7 +1309,8 @@
       }
 
 
-      body.innerHTML = "";
+      body.innerHTML =
+        "";
 
 
       data.forEach(
@@ -1203,6 +1321,7 @@
               "div"
             );
 
+
           row.className =
             "leaderboard-row";
 
@@ -1212,8 +1331,10 @@
               "div"
             );
 
+
           rank.className =
             "rank";
+
 
           rank.textContent =
             index + 1;
@@ -1224,8 +1345,10 @@
               "div"
             );
 
+
           playerName.className =
             "player-name";
+
 
           playerName.textContent =
             player.name;
@@ -1236,8 +1359,10 @@
               "div"
             );
 
+
           time.className =
             "time";
+
 
           time.textContent =
             formatTime(
@@ -1253,12 +1378,14 @@
 
           row.appendChild(time);
 
+
           body.appendChild(row);
 
         }
       );
 
     }
+
 
     catch (error) {
 
